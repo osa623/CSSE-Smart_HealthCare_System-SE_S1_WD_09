@@ -19,7 +19,7 @@ const Footerm = () => {
           <FontAwesomeIcon icon ={faAddressBook} className='text-primary h-8'/>
           <FontAwesomeIcon icon ={faHomeLg} className='text-primary h-8'/>
           
-          {/* Main Navigation for Menus */}
+           {/* Main Navigation for Menus */}
           <div className='flex bg-primary items-center justify-center h-16 w-16 rounded-full ' style={{
             boxShadow:'inset 0 6px 6px rgba(65,105,225,0.5)'
           }}>
