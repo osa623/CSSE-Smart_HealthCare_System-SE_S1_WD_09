@@ -4,23 +4,20 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-blue-600 py-12">
-        <div className="container mx-auto px-6 lg:px-20 flex flex-col lg:flex-row items-center justify-between">
-          <div className="text-white lg:w-1/2">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
-              Your Health, Our Priority
+      <section className="bg-primary py-12 lgs:mt-12">
+        <div className="container mx-auto px-6 lgs:px-20 flex flex-col bg-baseprimary lgs:rounded-3xl lgs:w-[100vw] lgs:flex-row items-center justify-center lgs:space-x-5">
+
+          <div className="text-white lgs:h-auto lgs:w-[50vw] lgs:space-y-6">
+
+            <h1 className="flex flex-col text-5xl font-russoone lg:text-5xl font-semibold mb-6">
+              Your Health, Our Priority{''}
+              <div className="bg-primary h-[0.18rem] lgs:w-1/2 lgs:mt-2"/>
             </h1>
-            <p className="text-lg mb-6">
-              Schedule appointments with our expert doctors easily and get the best medical care. We are here for all your health needs.
-            </p>
-            <a
-              href="/appointments"
-              className="bg-white text-blue-600 px-6 py-3 rounded-full text-lg font-semibold hover:bg-gray-200"
-            >
-              Book an Appointment
-            </a>
+            <p className="text-lg mb-6 lgs:w-[35vw]" style={{ fontWeight:'300'}}>
+            At MediLink, we are dedicated to providing personalized, compassionate healthcare tailored to your needs. Whether you’re looking for routine checkups, specialist consultations, or urgent care, our team of experienced doctors is here for you. Schedule your appointments effortlessly and start your journey toward better health today</p>
+
           </div>
-          <div className="lg:w-1/2 mt-8 lg:mt-0">
+          <div className=" lgs:w-[50vw] mt-8 lg:mt-0">
             <img
               src="https://via.placeholder.com/500" // Replace with your hero image URL
               alt="Medical center"
