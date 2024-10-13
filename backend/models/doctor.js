@@ -21,6 +21,10 @@ const doctorSchema = new mongoose.Schema({
     },
     seatCount: {
         type: [Number],
+        
+    },
+    pricePerSchedule: {
+        type: Number,  // Can be Float as well, if needed
         required: true,
     },
 });

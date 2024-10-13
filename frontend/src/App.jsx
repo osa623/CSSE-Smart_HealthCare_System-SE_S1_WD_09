@@ -11,6 +11,7 @@ import {
 import Navbar from "./utils/navbar";
 import Footerm from "./utils/Footerm";
 import Sidebar from './components/Sidebar';
+import SidebarLayout from "./components/SidebarLayout";
 
 // Pages
 import Appointment from "./pages/Appointment";
@@ -25,7 +26,7 @@ import ReportDetails from './pages/ReportDetails';
 
 // Loading component
 import Loading from "./utils/loading";
-import SidebarLayout from "./components/SidebarLayout";
+
 
 const AppContent = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -66,33 +67,34 @@ const AppContent = () => {
             <Route path="/register" element={<Register />} />
 
             <Route path="/addDoctor" element={
-              <SidebarLayout>
+             
                 <AddDoctor />
-              </SidebarLayout>
+             
             } />
 
             <Route path="/view-doctors" element={
-              <SidebarLayout>
+              
                 <DoctorList />
-              </SidebarLayout>
+             
             } />
 
             <Route path="/add-report" element={
-              <SidebarLayout>
+             
                 <AddMedicalReportForm />
-              </SidebarLayout>
+              
             } />
 
             <Route path="/addedReports" element={
-              <SidebarLayout>
+            
                 <AddedReports />
-              </SidebarLayout>
+            
             } />
 
+            
             <Route path="/report/:id" element={
-              <SidebarLayout>
+             
                 <ReportDetails />
-              </SidebarLayout>
+              
             } />
             
             {/* Fallback route for undefined paths */}

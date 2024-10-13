@@ -2,28 +2,17 @@ import React, { useState } from 'react';
 
 const UpdateDoctorModal = ({ doctor, onUpdate, onClose }) => {
     const [formData, setFormData] = useState({ ...doctor });
-    const seatsTotal = 30; // Total number of seats
-    const [selectedSeats, setSelectedSeats] = useState(doctor.seatCount || []); // Initialize with doctor's current seats
 
-    // Handle input changes for other fields
+    // Handle input changes for fields
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    // Toggle seat selection
-    const toggleSeatSelection = (seatNumber) => {
-        setSelectedSeats((prevSeats) =>
-            prevSeats.includes(seatNumber)
-                ? prevSeats.filter((seat) => seat !== seatNumber)
-                : [...prevSeats, seatNumber]
-        );
-    };
-
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await onUpdate({ ...formData, seatCount: selectedSeats }); // Send updated seat count
+        await onUpdate(formData); // Send updated data with price
         onClose(); // Close modal after updating
     };
 
@@ -65,28 +54,16 @@ const UpdateDoctorModal = ({ doctor, onUpdate, onClose }) => {
                             required
                         />
                     </div>
-
-                    {/* Seat Selection Section */}
                     <div className="mb-4">
-                        <label className="block text-sm font-medium mb-1">Select Seats:</label>
-                        <div className="grid grid-cols-6 gap-2 mt-2">
-                            {Array.from({ length: seatsTotal }, (_, index) => {
-                                const seatNumber = index + 1;
-                                const isSelected = selectedSeats.includes(seatNumber);
-                                return (
-                                    <button
-                                        type="button"
-                                        key={seatNumber}
-                                        onClick={() => toggleSeatSelection(seatNumber)}
-                                        className={`p-2 border rounded-md ${
-                                            isSelected ? 'bg-green-500' : 'bg-gray-200'
-                                        }`}
-                                    >
-                                        {seatNumber}
-                                    </button>
-                                );
-                            })}
-                        </div>
+                        <label className="block text-sm font-medium mb-1">Price per Schedule</label>
+                        <input
+                            type="number"
+                            name="pricePerSchedule"
+                            value={formData.pricePerSchedule}
+                            onChange={handleChange}
+                            className="border border-gray-300 p-2 w-full"
+                            required
+                        />
                     </div>
 
                     <div className="flex justify-between">
