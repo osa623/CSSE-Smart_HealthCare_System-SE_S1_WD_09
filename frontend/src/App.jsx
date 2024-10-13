@@ -13,7 +13,8 @@ import Footerm from "./utils/Footerm";
 import SideItemBar from "./utils/sideItemBar";
 
 // Pages
-import Home from "./pages/home";
+import Appointment from "./pages/Appointment";
+import Home from "./pages/Home";
 import Login from "./pages/login"; // Importing the login page
 import Register from "./pages/register"; // Importing the register page
 
@@ -48,6 +49,7 @@ const AppContent = () => {
         ) : (
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/Appointment" element={<Appointment />} />
             <Route path="/login" element={<Login />} /> {/* Login route */}
             <Route path="/register" element={<Register />} />{" "}
             {/* Register route */}
@@ -58,11 +60,11 @@ const AppContent = () => {
       </div>
 
       {/* SideItemBar Compo */}
-      {!excludeNavbarFooter.includes(location.pathname) && (
+{ /*     {!excludeNavbarFooter.includes(location.pathname) && (
         <div className="hidden lgs:flex mds:flex items-center justify-center">
           <SideItemBar />
         </div>
-      )}
+      )} */}
 
       {/* Conditionally render Footer based on the current path */}
       {!excludeNavbarFooter.includes(location.pathname) && (

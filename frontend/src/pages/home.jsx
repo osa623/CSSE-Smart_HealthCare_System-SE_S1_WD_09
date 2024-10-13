@@ -1,84 +1,73 @@
 
-//images
-import Doctor1 from '../assets/doctor1.png';
 
-
-const home = () => {
+const Home = () => {
   return (
-    <div className='bg-primary w-full min-h-screen justify-center items-center'>
-
-
-
-      <div className= 'hidden lgs:flex mds:flex bg-transparent lgs:w-[100vw] lgs:h-[4rem]'/>
-
-      {/* Booking Appointment Interface */}
-
-          <div className= 'relative flex h-auto w-auto justify-center items-center'>
-
-             {/* Booking Appointements */}
-
-              <div className= 'flex lgs:w-[75vw] lgs:h-[75vh] bg-primary drop-shadow-lg items-center justify-center lgs:mt-5 lgs:rounded-3xl' style={{
-                boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5)'
-              }}>
-
-
-
-                                    {/* Booking 1st Interface */}
-
-                                    <div className= 'flex flex-col lgs:w-[30vw] lgs:h-[75vh] bg-baseprimary lgs:p-2 drop-shadow-lg justify-center lgs:items-center lgs:rounded-l-3xl'>
-                                       
-                                       {/* Topic Section */}
-                                        <div className= 'flex flex-col h-auto lgs:w-[25vw] justify-center items-center'>
-                                            <h2 className= 'flex flex-col font-ibmplexsans lgs:text-md text-primary'>
-                                              Your Health, Your Schedule{''}<div className='bg-primary h-[0.15rem] w-auto'/>
-                                            </h2>
-                                            <h2 className= 'font-russoone lgs:text-3xl text-primary font-normal'>
-                                            Book Your Appointment
-                                            </h2>
-                                        </div>
-
-                                     {/* Image Section */}
-                                         <div className= 'flex flex-col h-auto lgs:w-[30vw] justify-center items-center lgs:pt-5'>
-                                            <img src= {Doctor1} alt='' className='lgs:w-[20vw]'/>
-                                        </div>
-
-                                     {/* Paragraph Section */}
-                                        <div className= 'flex flex-col h-auto lgs:w-[20vw] justify-center items-center lgs:pt-5'>
-                                           <p className='font-ibmplexsans text-primary text-md text-center' style={{
-                                            fontWeight:'200'
-                                           }}>
-                                           Schedule your doctor appointments quickly and conveniently through our easy-to-use interface. Select your preferred doctor, choose a suitable date and time, and provide any necessary details—all in just a few steps. Get reminders and manage your bookings effortlessly from anywhere!
-                                           </p>
-                                        </div>
-
-                                    {/* design  Section */}
-                                       <div className= 'flex h-auto lgs:w-[20vw] justify-center items-center lgs:pt-5 lgs:space-x-5'>
-                                        <div className='bg-primary h-[0.2rem] rounded-full w-[5rem]' data-aos='fade-right'/>
-                                        <div className='bg-primary h-3 w-3 rounded-full' data-aos='zoom-in'/>    
-                                        <div className='bg-primary h-3 w-3 rounded-full' data-aos='zoom-in'/>             
-                                        <div className='bg-primary h-[0.2rem] rounded-full w-[5rem]' data-aos='fade-left'/>
-                                           
-                                        </div>
-
-
-
-                                    </div>
-
-
-                                    {/* Booking 2nd Interface */}
-
-                                    <div className= 'flex lgs:w-[45vw] lgs:h-[75vh] bg-primary drop-shadow-lg justify-center items-center lgs:rounded-r-3xl'>
-
-
-                                  </div>
-                
-              </div>            
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <section className="bg-blue-600 py-12">
+        <div className="container mx-auto px-6 lg:px-20 flex flex-col lg:flex-row items-center justify-between">
+          <div className="text-white lg:w-1/2">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+              Your Health, Our Priority
+            </h1>
+            <p className="text-lg mb-6">
+              Schedule appointments with our expert doctors easily and get the best medical care. We are here for all your health needs.
+            </p>
+            <a
+              href="/appointments"
+              className="bg-white text-blue-600 px-6 py-3 rounded-full text-lg font-semibold hover:bg-gray-200"
+            >
+              Book an Appointment
+            </a>
           </div>
+          <div className="lg:w-1/2 mt-8 lg:mt-0">
+            <img
+              src="https://via.placeholder.com/500" // Replace with your hero image URL
+              alt="Medical center"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+      </section>
 
-      
-      
+      {/* Services Section */}
+      <section className="py-12">
+        <div className="container mx-auto px-6 lg:px-20 text-center">
+          <h2 className="text-3xl font-semibold mb-8">Our Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white shadow-lg rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-4">General Checkup</h3>
+              <p className="text-gray-600">Routine medical exams to ensure your well-being.</p>
+            </div>
+            <div className="bg-white shadow-lg rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-4">Pediatrics</h3>
+              <p className="text-gray-600">Healthcare for your children with compassionate care.</p>
+            </div>
+            <div className="bg-white shadow-lg rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-4">Specialist Consultation</h3>
+              <p className="text-gray-600">Consult with top specialists for more advanced medical care.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="bg-green-500 py-12">
+        <div className="container mx-auto px-6 lg:px-20 text-center text-white">
+          <h2 className="text-3xl font-semibold mb-4">Get Started with Your Health Journey</h2>
+          <p className="text-lg mb-6">
+            Book your appointment now and take the first step towards better health.
+          </p>
+          <a
+            href="/appointments"
+            className="bg-white text-green-600 px-6 py-3 rounded-full text-lg font-semibold hover:bg-gray-100"
+          >
+            Book Now
+          </a>
+        </div>
+      </section>
     </div>
-  )
-}
+  );
+};
 
-export default home
+export default Home;
