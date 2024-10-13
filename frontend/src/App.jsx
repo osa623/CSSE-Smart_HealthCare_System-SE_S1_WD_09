@@ -16,6 +16,9 @@ import SideItemBar from "./utils/sideItemBar";
 import Home from "./pages/home";
 import Login from "./pages/login"; // Importing the login page
 import Register from "./pages/register"; // Importing the register page
+import Profile from "./pages/Profile"; // Importing the profile page
+import DisplayAppointments from "./pages/displayAppointments";
+import PaymentProcess from "./pages/paymentProcess";
 
 // Loading component
 import Loading from "./utils/loading";
@@ -51,13 +54,17 @@ const AppContent = () => {
             <Route path="/login" element={<Login />} /> {/* Login route */}
             <Route path="/register" element={<Register />} />{" "}
             {/* Register route */}
+            <Route path="/profile" element={<Profile />} />{" "}
+            <Route path="/payment" element={<DisplayAppointments />} />{" "}
+            <Route path="/payment-process" element={<PaymentProcess />} />{" "}
+            {/* Profile route */}
             {/* Fallback route for undefined paths */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         )}
       </div>
 
-      {/* SideItemBar Compo */}
+      {/* SideItemBar Component */}
       {!excludeNavbarFooter.includes(location.pathname) && (
         <div className="hidden lgs:flex mds:flex items-center justify-center">
           <SideItemBar />

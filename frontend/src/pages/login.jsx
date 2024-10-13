@@ -3,16 +3,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import Doctor1 from "../assets/doctor1.png";
 import Doctor2 from "../assets/doctor2.png"; // Add more images if needed
+import axios from "axios"; // Import axios for making API requests
+import { useNavigate } from "react-router-dom"; // Import for navigation
 
 const Login = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState(""); // State for error messages
+  const navigate = useNavigate(); // Hook for navigation
+
   const slides = [
     {
       image: Doctor1,
       title: "Your Health, Your Schedule",
       subtitle: "Book Your Appointment",
       description:
-        "Schedule your doctor appointments quickly and conveniently through our easy-to-use interface. Select your preferred doctor, choose a suitable date and time, and provide any necessary details—all in just a few steps. Get reminders and manage your bookings effortlessly from anywhere!",
+        "Schedule your doctor appointments quickly and conveniently through our easy-to-use interface.",
     },
     {
       image: Doctor2,
@@ -32,6 +41,49 @@ const Login = () => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(""); // Reset error state
+
+    try {
+      // POST request to authenticate user
+      const response = await axios.post(
+        "http://localhost:3000/api/users/login",
+        {
+          email: formData.email,
+          password: formData.password,
+        }
+      );
+
+      // If login is successful, navigate to the dashboard or desired route
+      if (response.status === 200) {
+        // Store the user email in session storage
+        sessionStorage.setItem("userEmail", formData.email); // Store email in session storage
+
+        // Verify if the email is stored
+        const storedEmail = sessionStorage.getItem("userEmail");
+        if (storedEmail === formData.email) {
+          console.log(`Email stored successfully: ${storedEmail}`); // Log success message
+        } else {
+          console.error("Failed to store email."); // Log failure message
+        }
+
+        localStorage.setItem("user", JSON.stringify(response.data.user)); // Store user data in local storage
+        navigate("/"); // Redirect to the dashboard
+      }
+    } catch (err) {
+      // Set error message if login fails
+      setError("Invalid email or password.");
+    }
+  };
 
   return (
     <div className="bg-gradient-to-br from-baseextra4 to-baseprimary w-full min-h-screen flex justify-center items-center p-6">
@@ -99,7 +151,10 @@ const Login = () => {
 
         {/* Right Section: Login Form */}
         <div className="flex flex-col sms:w-full sms:h-auto lgs:w-[45vw] lgs:h-[75vh] bg-white justify-center items-center p-10 rounded-r-3xl">
-          <form className="flex flex-col w-full max-w-sm space-y-6">
+          <form
+            className="flex flex-col w-full max-w-sm space-y-6"
+            onSubmit={handleSubmit}
+          >
             {/* Email Input with Icon */}
             <div className="flex items-center space-x-3 border border-basesecondary rounded-full p-3 focus-within:ring-2 focus-within:ring-baseprimary transition-all duration-300">
               <FontAwesomeIcon
@@ -108,8 +163,11 @@ const Login = () => {
               />
               <input
                 type="email"
+                name="email"
                 placeholder="Email"
                 className="w-full focus:outline-none"
+                onChange={handleChange}
+                required
               />
             </div>
 
@@ -118,10 +176,16 @@ const Login = () => {
               <FontAwesomeIcon icon={faLock} className="text-baseprimary h-6" />
               <input
                 type="password"
+                name="password"
                 placeholder="Password"
                 className="w-full focus:outline-none"
+                onChange={handleChange}
+                required
               />
             </div>
+
+            {/* Error Message */}
+            {error && <p className="text-red-500 text-center">{error}</p>}
 
             {/* Submit Button */}
             <button
