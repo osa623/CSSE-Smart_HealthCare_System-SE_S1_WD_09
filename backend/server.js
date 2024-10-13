@@ -32,8 +32,12 @@ mongoose
 
 const userRoutes = require("./routes/userRoutes"); // Import userRoutes
 app.use("/api/users", userRoutes); // Use the userRoutes for the /api/users endpoint
+
 const appointmentsRoute = require("./routes/appointmentsRoute"); // Import userRoutes
 app.use("/api/appointments", appointmentsRoute); // Use the userRoutes for the /api/users endpoint
+
+const paymentRoutes = require("./routes/paymentRoutes"); // Import userRoutes
+app.use("/api/payments", paymentRoutes); // Use the userRoutes for the /api/users endpoint
 
 // Start the server
 app.listen(port, () => {

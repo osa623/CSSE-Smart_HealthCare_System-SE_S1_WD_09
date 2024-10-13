@@ -70,8 +70,18 @@ const DisplayAppointments = () => {
   }, 0);
 
   const handleProceedToPayment = () => {
+    // Log selected appointments for debugging
+    console.log("Selected Appointments:", selectedAppointments);
+
+    // Check if any appointments have been selected
+    if (!selectedAppointments || selectedAppointments.length === 0) {
+      alert("No appointments selected.");
+      return; // Exit early if there are no selected appointments
+    }
+
+    // Navigate to payment process with selected appointments and total charge
     navigate("/payment-process", {
-      state: { selectedAppointments, totalCharge }, // Pass selected appointments and total charge
+      state: { selectedAppointments, totalCharge }, // Pass selected appointments directly
     });
   };
 
