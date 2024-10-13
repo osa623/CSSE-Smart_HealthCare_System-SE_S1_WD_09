@@ -30,13 +30,14 @@ mongoose
 
 // Routes
 
-const doctorRoutes = require("./routes/doctorRoutes"); // Import reportRoutes
-app.use("/api/doctors", doctorRoutes); // Use the reportRoutes for the /api/reports endpoint
-
-
+const doctorRoutes = require("./routes/doctorRoutes");
+app.use("/api/doctors", doctorRoutes); 
 
 const MedicalReportRoutes = require("./routes/MedicalReportsRoutes"); 
 app.use("/api/medicalReport", MedicalReportRoutes); 
+
+const appointmentRoutes = require("./routes/Appoitment"); 
+app.use("/api/appointments", appointmentRoutes); 
 
 
 

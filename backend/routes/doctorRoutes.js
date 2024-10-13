@@ -86,6 +86,19 @@ router.put("/:id", async (req, res) => {
     }
 });
 
+// Get doctors by specialization
+
+router.get("/specialization/:specialization", async (req, res) => {
+    const { specialization } = req.params;
+    try {
+        const doctors = await Doctors.find({ specialization }); // Fetch doctors by specialization
+        res.status(200).json(doctors);
+    } catch (error) {
+        console.error("Error fetching doctors:", error);
+        res.status(500).json({ message: "Error fetching doctors" });
+    }
+});
+
 
 // In routes/doctors.js
 router.delete('/', async (req, res) => {

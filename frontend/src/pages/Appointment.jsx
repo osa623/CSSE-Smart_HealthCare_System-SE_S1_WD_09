@@ -1,14 +1,38 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 //images
-import { useState } from 'react';
 import Doctor1 from '../assets/doctor1.png';
 
 
 const Appointment = () => {
 
-  //hooks
-  const [options1 , setOptions1] = useState([]);
-  const [options2 , setOptions2] = useState([]);
+  const [options1, setOptions1] = useState([
+    { id: 'Cardiology', name: 'Cardiology' },
+    { id: 'Neurology', name: 'Neurology' },
+    // Add more specialization
+]);
+const [selectedSpecialization, setSelectedSpecialization] = useState('');
+const [options2, setOptions2] = useState([]); // Doctors based on specialization
+
+// Function to fetch doctors based on specialization
+const fetchDoctorsBySpecialization = async (specialization) => {
+    try {
+        const response = await axios.get(`http://localhost:3000/api/doctors/specialization/${specialization}`);
+        setOptions2(response.data); // Set doctors to dropdown
+    } catch (error) {
+        console.error('Error fetching doctors:', error);
+    }
+};
+
+// Effect to fetch doctors when specialization is selected
+useEffect(() => {
+    if (selectedSpecialization) {
+        fetchDoctorsBySpecialization(selectedSpecialization);
+    }
+}, [selectedSpecialization]);
+
+
 
 
   return (
@@ -81,7 +105,10 @@ const Appointment = () => {
                                                     {/* First Dropdown */}
                                                     <div>
                                                         <label htmlFor="firstDropdown" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Select Specialization</label>
-                                                        <select id="firstDropdown" name="firstDropdown" className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm">
+                                                        <select id="firstDropdown"
+                                                                name="firstDropdown"
+                                                                className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
+                                                                onChange={(e) => setSelectedSpecialization(e.target.value)}>
                                                             <option value="" className='font-ibmplexsans lgs:text-lg'>Choose an option</option>
                                                             {options1.map(option => (
                                                               <option key={option.id} value={option.id}>
@@ -98,7 +125,7 @@ const Appointment = () => {
                                                             <option value="" className='font-ibmplexsans lgs:text-lg'>Choose an option</option>
                                                             {options2.map(option => (
                                                               <option key={option.id} value={option.id}>
-                                                                {option.name}
+                                                                {option.doctorName}
                                                               </option>
                                                             ))}
                                                         </select>
@@ -144,19 +171,26 @@ const Appointment = () => {
                                                                   />
                                                                 </div>
 
-                                                                {/* Amount Field */}
+                                                                {/* Time Field */}
                                                                 <div>
-                                                                  <label htmlFor="priceField" className="block lgs:text-xl font-ibmplexsans text-baseprimary">
-                                                                   Medical Charge
-                                                                  </label>
-                                                                  <input
-                                                                    type="number"
-                                                                    id="priceField"
-                                                                    name="priceField"
-                                                                    className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
-                                                                    placeholder="Enter the Amount"
-                                                                  />
-                                                                </div>
+                                                                    <label
+                                                                      htmlFor="timeField"
+                                                                      className="block lgs:text-xl font-ibmplexsans text-baseprimary"
+                                                                    >
+                                                                      Scheduled Time
+                                                                    </label>
+                                                                    <div className="relative mt-1">
+                                                                      <input
+                                                                        type="time"
+                                                                        id="timeField"
+                                                                        name="timeField"
+                                                                        className="block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm pl-10" // Added padding for the icon
+                                                                      />
+                                                                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                                        <i className="fas fa-clock text-gray-500"></i> {/* FontAwesome clock icon */}
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
 
                                                                 {/* Extra Field */}
                                                                 <div>
