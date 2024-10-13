@@ -116,14 +116,14 @@ const Appointment = () => {
 
                                                     {/* confirm Button */}
                                                     <div className='flex w-auto h-auto justify-end lgs:space-x-5'>
-                                                        <button type="submit" className="lgs:w-[10rem] bg-green-600  text-white py-2 px-4 rounded-full hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                                                        <button type="submit" className="lgs:w-[10rem] bg-green-600  text-white py-2 px-4 rounded-full hover:bg-secondary-dark hover:scale-110 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                                                         style={{
                                                           boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'  
                                                         }}>
                                                             Confirm
                                                         </button>
 
-                                                        <button type="submit" className="lgs:w-[10rem] bg-baseprimary text-white py-2 px-4 rounded-full hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" style={{
+                                                        <button type="submit" className="lgs:w-[10rem] bg-baseprimary text-white py-2 px-4 rounded-full hover:bg-secondary-dark hover:scale-110 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" style={{
                                                           boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'
                                                         }}>
                                                             Cancel
