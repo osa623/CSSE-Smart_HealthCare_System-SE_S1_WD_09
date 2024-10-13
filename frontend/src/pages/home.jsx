@@ -35,7 +35,7 @@ const Home = () => {
                             At MediLink, we are dedicated to providing personalized, compassionate healthcare tailored to your needs. Whether you’re looking for routine checkups, specialist consultations, or urgent care, our team of experienced doctors is here for you. Schedule your appointments effortlessly and start your journey toward better health today</p>
 
 
-                            <Link to='/' className="flex lgs:mt-12 bg-blue-600 lgs:w-[12rem] items-center justify-center lgs:h-[3rem] font-ibmplexsans rounded-full hover:scale-110 transition-transform duration-300 ease-in-out"
+                            <Link to='/Appointment' className="flex lgs:mt-12 bg-blue-600 lgs:w-[12rem] items-center justify-center lgs:h-[3rem] font-ibmplexsans rounded-full hover:scale-110 transition-transform duration-300 ease-in-out"
                             style={{
                             boxShadow:'inset 0 2px 5px rgba(255,255,255,0.5), 0px 5px 10px rgba(0,0,0,0.4)'
                             }}>

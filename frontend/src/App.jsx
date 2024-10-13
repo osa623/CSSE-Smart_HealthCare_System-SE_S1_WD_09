@@ -10,11 +10,11 @@ import {
 // Navbar and Footer components
 import Navbar from "./utils/navbar";
 import Footerm from "./utils/Footerm";
-import SideItemBar from "./utils/sideItemBar";
+//import SideItemBar from "./utils/sideItemBar";
 
 // Pages
 import Appointment from "./pages/Appointment";
-import Home from "./pages/Home";
+import Home from "./pages/home";
 import Login from "./pages/login"; // Importing the login page
 import Register from "./pages/register"; // Importing the register page
 
@@ -27,6 +27,7 @@ const AppContent = () => {
 
   // Paths where Navbar and Footer should not appear
   const excludeNavbarFooter = ["/login", "/register"];
+  const excludeLoadingScreen = [];
 
   useEffect(() => {
     setIsLoading(true);
@@ -45,7 +46,11 @@ const AppContent = () => {
 
       <div className="flex-grow">
         {isLoading ? (
-          <Loading />
+          !excludeLoadingScreen.includes(location.pathname) && (
+           
+              <Loading />
+            
+          )
         ) : (
           <Routes>
             <Route path="/" element={<Home />} />

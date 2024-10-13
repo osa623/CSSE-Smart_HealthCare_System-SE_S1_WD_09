@@ -16,15 +16,15 @@ const Appointment = () => {
 
 
 
-      <div className= 'hidden lgs:flex mds:flex bg-transparent lgs:w-[100vw] lgs:h-[4rem]'/>
+      {/*<div className= 'hidden lgs:flex mds:flex bg-transparent lgs:w-[100vw] lgs:h-[4rem]'/>*/}
 
       {/* Booking Appointment Interface */}
 
-          <div className= 'relative flex h-auto w-auto justify-center items-center'>
+          <div className= 'relative flex min-h-screen w-auto justify-center items-center'>
 
              {/* Booking Appointements */}
 
-              <div className= 'flex lgs:w-[75vw] lgs:h-[75vh] overflow-hidden bg-primary drop-shadow-lg items-center justify-center lgs:mt-5 lgs:rounded-3xl' style={{
+              <div className= 'flex lgs:w-[75vw] lgs:h-[75vh] overflow-hidden bg-primary drop-shadow-lg items-center justify-center lgs:rounded-3xl' style={{
                 boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'
               }}>
 
@@ -32,7 +32,7 @@ const Appointment = () => {
 
                                     {/* Booking 1st Interface */}
 
-                                    <div className= 'flex flex-col lgs:w-[30vw] lgs:h-[75rem] bg-baseprimary lgs:p-2 drop-shadow-lg justify-center lgs:items-center lgs:rounded-l-3xl'>
+                                    <div className= 'flex flex-col lgs:w-[30vw] lgs:h-[75rem] bg-baseprimary lgs:p-2 drop-shadow-lg justify-center lgs:space-y-4 lgs:items-center lgs:rounded-l-3xl'>
                                        
                                        {/* Topic Section */}
                                         <div className= 'flex flex-col h-auto lgs:w-[25vw] justify-center items-center'>
@@ -80,7 +80,7 @@ const Appointment = () => {
                                                     {/* First Dropdown */}
                                                     <div>
                                                         <label htmlFor="firstDropdown" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Select Specialization</label>
-                                                        <select id="firstDropdown" name="firstDropdown" className="lgs:mt-1 lgs:h-[3rem] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm">
+                                                        <select id="firstDropdown" name="firstDropdown" className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm">
                                                             <option value="" className='font-ibmplexsans lgs:text-lg'>Choose an option</option>
                                                             {options1.map(option => (
                                                               <option key={option.id} value={option.id}>
@@ -93,7 +93,7 @@ const Appointment = () => {
                                                     {/* Second Dropdown */}
                                                     <div>
                                                         <label htmlFor="secondDropDown" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Select Doctor</label>
-                                                        <select id="secondDropDown" name="secondDropDown" className="lgs:mt-1 lgs:h-[3rem] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm">
+                                                        <select id="secondDropDown" name="secondDropDown" className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm">
                                                             <option value="" className='font-ibmplexsans lgs:text-lg'>Choose an option</option>
                                                             {options2.map(option => (
                                                               <option key={option.id} value={option.id}>
@@ -109,15 +109,19 @@ const Appointment = () => {
                                                         type="date"
                                                         id="dateField"
                                                         name="dateField"
-                                                        className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                        className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                       />
                                                     </div>
 
 
                                                     {/* confirm Button */}
-                                                    <div>
-                                                        <button type="submit" className="w-full bg-secondary text-white py-2 px-4 rounded-md hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                                                            Submit
+                                                    <div className='flex w-auto h-auto justify-end lgs:space-x-5'>
+                                                        <button type="submit" className="lgs:w-[10rem] bg-green-600 text-white py-2 px-4 rounded-md hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                                            Confirm
+                                                        </button>
+
+                                                        <button type="submit" className="lgs:w-[10rem] bg-baseprimary text-white py-2 px-4 rounded-md hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                                            Cancel
                                                         </button>
                                                     </div>
                                                 </form>
