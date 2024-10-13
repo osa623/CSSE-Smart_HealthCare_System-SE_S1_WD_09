@@ -20,11 +20,11 @@ const Appointment = () => {
 
       {/* Booking Appointment Interface */}
 
-          <div className= 'relative flex min-h-screen w-auto justify-center items-center'>
+          <div className= 'relative flex min-h-screen w-auto justify-center items-center lgs:mt-5'>
 
              {/* Booking Appointements */}
 
-              <div className= 'flex lgs:w-[75vw] lgs:h-[75vh] overflow-hidden bg-primary drop-shadow-lg items-center justify-center lgs:rounded-3xl' style={{
+              <div className= 'flex lgs:w-[75vw] lgs:h-[85vh] overflow-hidden bg-primary drop-shadow-lg items-center justify-center lgs:rounded-3xl' style={{
                 boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'
               }}>
 
@@ -32,7 +32,7 @@ const Appointment = () => {
 
                                     {/* Booking 1st Interface */}
 
-                                    <div className= 'flex flex-col lgs:w-[30vw] lgs:h-[75rem] bg-baseprimary lgs:p-2 drop-shadow-lg justify-center lgs:space-y-4 lgs:items-center lgs:rounded-l-3xl'>
+                                    <div className= 'flex flex-col lgs:w-[30vw] lgs:h-[85vh] bg-baseprimary lgs:p-2 drop-shadow-lg justify-center lgs:space-y-4 lgs:items-center lgs:rounded-l-3xl'>
                                        
                                        {/* Topic Section */}
                                         <div className= 'flex flex-col h-auto lgs:w-[25vw] justify-center items-center'>
@@ -74,9 +74,10 @@ const Appointment = () => {
 
                                     {/* Booking 2nd Interface */}
 
-                                    <div className='flex lgs:w-[45vw] lgs:h-[75vh] bg-primary lgs:p-2 drop-shadow-lg justify-center items-center lgs:rounded-r-3xl'>
+                                    <div className='flex lgs:w-[45vw] lgs:h-[85vh] bg-primary lgs:p-2 drop-shadow-lg justify-center items-center lgs:rounded-r-3xl'>
                                                 
                                                 <form className="flex flex-col space-y-6 w-full h-auto px-8">
+                                                  
                                                     {/* First Dropdown */}
                                                     <div>
                                                         <label htmlFor="firstDropdown" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Select Specialization</label>
@@ -103,15 +104,79 @@ const Appointment = () => {
                                                         </select>
                                                     </div>
 
-                                                    {/* Text Field */}
+                                                    {/* Email TextArea */}
                                                     <div>
-                                                    <label htmlFor="dateField" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Pick a Date</label>                                                      <input
-                                                        type="date"
-                                                        id="dateField"
-                                                        name="dateField"
-                                                        className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
-                                                      />
-                                                    </div>
+                                                          <label htmlFor="descriptionField" className="block lgs:text-xl font-ibmplexsans text-baseprimary">
+                                                            Your Email
+                                                          </label>
+                                                          <input
+                                                            id="descriptionField"
+                                                            name="descriptionField"
+                                                            className="mt-1 block w-full lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                            placeholder="Provide Your Email Here..."
+                                                          ></input>
+                                                        </div>
+
+                                                    {/* Description TextArea */}
+                                                       <div>
+                                                          <label htmlFor="descriptionField" className="block lgs:text-xl font-ibmplexsans text-baseprimary">
+                                                            Add a Description
+                                                          </label>
+                                                          <textarea
+                                                            id="descriptionField"
+                                                            name="descriptionField"
+                                                            rows="4"
+                                                            className="mt-1 block w-full lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                            placeholder="Provide any additional details or notes for your appointment..."
+                                                          ></textarea>
+                                                        </div>
+
+
+                                                        <div className='flex lgs:w-auto lgs:justify-between lgs:items-center'>
+
+                                                                {/* Text Field */}
+                                                                <div>
+                                                                <label htmlFor="dateField" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Pick a Date</label>                                                      <input
+                                                                    type="date"
+                                                                    id="dateField"
+                                                                    name="dateField"
+                                                                    className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                                  />
+                                                                </div>
+
+                                                                {/* Amount Field */}
+                                                                <div>
+                                                                  <label htmlFor="priceField" className="block lgs:text-xl font-ibmplexsans text-baseprimary">
+                                                                   Medical Charge
+                                                                  </label>
+                                                                  <input
+                                                                    type="number"
+                                                                    id="priceField"
+                                                                    name="priceField"
+                                                                    className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                                    placeholder="Enter the Amount"
+                                                                  />
+                                                                </div>
+
+                                                                {/* Extra Field */}
+                                                                <div>
+                                                                  <label htmlFor="priceField" className="block lgs:text-xl font-ibmplexsans text-baseprimary">
+                                                                   Medical Charge
+                                                                  </label>
+                                                                  <input
+                                                                    type="number"
+                                                                    id="priceField"
+                                                                    name="priceField"
+                                                                    className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                                    placeholder="Enter the Amount"
+                                                                  />
+                                                                </div>
+
+
+
+
+                                                        </div>
+
 
 
                                                     {/* confirm Button */}
