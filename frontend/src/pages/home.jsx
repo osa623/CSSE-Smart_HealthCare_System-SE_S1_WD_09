@@ -1,3 +1,8 @@
+import { Link } from "react-router-dom";
+
+//images
+import heroImage from '../assets/heroImage.png';
+import heroBackground from '../assets/heroBackground.png';
 
 
 const Home = () => {
@@ -5,25 +10,57 @@ const Home = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="bg-primary py-12 lgs:mt-12">
-        <div className="container mx-auto px-6 lgs:px-20 flex flex-col bg-baseprimary lgs:rounded-3xl lgs:w-[100vw] lgs:flex-row items-center justify-center lgs:space-x-5">
+        <div className="container mx-auto overflow-hidden flex flex-col bg-transparent lgs:h-[80vh] lgs:rounded-3xl lgs:w-[100vw] lgs:flex-row items-center justify-center">
+        
+           {/* Main 01 section */}
+            <div className= 'flex flex-col h-auto lgs:w-[50vw] overflow-hidden items-center justify-center bg-baseprimary lgs:h-[80vh]' style={{
+                    boxShadow:'inset 0 5px 10px rgba(255,255,255,1), 0px 5px 10px rgba(0,0,0,0.4)',
 
-          <div className="text-white lgs:h-auto lgs:w-[50vw] lgs:space-y-6">
+            }}>
+                    {/* Background Section */}
+                <div className= 'flex flex-col h-auto lgs:w-[50vw] items-center justify-center bg-transparent lgs:h-[80vh]' style={{
+                                        backgroundImage:`url(${heroBackground})`,
+                                        backgroundSize:'cover',
+                                        backgroundPosition:'center'
+                }}>
 
-            <h1 className="flex flex-col text-5xl font-russoone lg:text-5xl font-semibold mb-6">
-              Your Health, Our Priority{''}
-              <div className="bg-primary h-[0.18rem] lgs:w-1/2 lgs:mt-2"/>
-            </h1>
-            <p className="text-lg mb-6 lgs:w-[35vw]" style={{ fontWeight:'300'}}>
-            At MediLink, we are dedicated to providing personalized, compassionate healthcare tailored to your needs. Whether you’re looking for routine checkups, specialist consultations, or urgent care, our team of experienced doctors is here for you. Schedule your appointments effortlessly and start your journey toward better health today</p>
+                        {/* Text and Button Section */}
+                           <div className="text-white lgs:h-auto  bg-transparent lgs:space-y-6">
 
-          </div>
-          <div className=" lgs:w-[50vw] mt-8 lg:mt-0">
-            <img
-              src="https://via.placeholder.com/500" // Replace with your hero image URL
-              alt="Medical center"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
+                            <h1 className="flex flex-col text-5xl font-russoone lg:text-5xl font-semibold mb-6">
+                            Your Health, Our Priority{''}
+                            <div className="bg-primary h-[0.18rem] lgs:w-1/2 lgs:mt-2"/>
+                            </h1>
+                            <p className="text-lg mb-6 lgs:w-[35vw]" style={{ fontWeight:'400'}}>
+                            At MediLink, we are dedicated to providing personalized, compassionate healthcare tailored to your needs. Whether you’re looking for routine checkups, specialist consultations, or urgent care, our team of experienced doctors is here for you. Schedule your appointments effortlessly and start your journey toward better health today</p>
+
+
+                            <Link to='/' className="flex lgs:mt-12 bg-blue-600 lgs:w-[12rem] items-center justify-center lgs:h-[3rem] font-ibmplexsans rounded-full hover:scale-110 transition-transform duration-300 ease-in-out"
+                            style={{
+                            boxShadow:'inset 0 2px 5px rgba(255,255,255,0.5), 0px 5px 10px rgba(0,0,0,0.4)'
+                            }}>
+                            Book an Appointment
+                            </Link>
+                            </div>
+
+                </div>
+
+
+
+            </div>
+
+           {/* Main 02 section */}
+            <div className="flex flex-col h-auto lgs:w-[50vw] items-center justify-center bg-primary lgs:h-[80vh]"
+            style={{
+              boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 10px rgba(0,0,0,0.4)'
+            }}>
+                <div className=" flex lgs:w-auto mt-8 lg:mt-0 justify-center items-center bg-transparent lgs:h-[80vh]">
+                <img 
+                src={heroImage} alt="heroImage" className="object-cover lgs:w-[35vw]"
+                />
+                </div>
+            </div>
+
         </div>
       </section>
 
