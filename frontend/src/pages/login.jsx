@@ -77,7 +77,7 @@ const Login = () => {
         }
 
         localStorage.setItem("user", JSON.stringify(response.data.user)); // Store user data in local storage
-        navigate("/"); // Redirect to the dashboard
+        navigate("/home"); // Redirect to the dashboard
       }
     } catch (err) {
       // Set error message if login fails

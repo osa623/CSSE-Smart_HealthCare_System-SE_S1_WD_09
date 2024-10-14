@@ -102,7 +102,7 @@ const Register = () => {
 
   const handleDoneClick = () => {
     setShowModal(false);
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -203,7 +203,7 @@ const Register = () => {
               <p className="flex items-center justify-center space-x-1">
                 <span className="text-gray-600">Already have an account?</span>
                 <a
-                  href="/login"
+                  href="/"
                   className="text-baseprimary font-semibold underline hover:text-basesecondary transition-colors duration-300"
                 >
                   Login here

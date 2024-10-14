@@ -143,7 +143,7 @@ const PaymentProcess = () => {
   const currentTime = new Date().toLocaleTimeString();
 
   return (
-    <div className="bg-primary min-h-screen flex flex-col items-center justify-center p-6">
+    <div className="bg-gradient-to-br from-baseextra4 to-baseprimary min-h-screen flex flex-col items-center justify-center p-6">
       <div className="mb-24 mt-16">
         <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">

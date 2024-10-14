@@ -39,6 +39,12 @@ app.use("/api/appointments", appointmentsRoute); // Use the userRoutes for the /
 const paymentRoutes = require("./routes/paymentRoutes"); // Import userRoutes
 app.use("/api/payments", paymentRoutes); // Use the userRoutes for the /api/users endpoint
 
+const doctorRoutes = require("./routes/doctorRoutes"); // Import reportRoutes
+app.use("/api/doctors", doctorRoutes); // Use the reportRoutes for the /api/reports endpoint
+
+const MedicalReportRoutes = require("./routes/MedicalReportsRoutes");
+app.use("/api/medicalReport", MedicalReportRoutes);
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

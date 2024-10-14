@@ -15,6 +15,7 @@ import {
 import Doctor1 from "../assets/doctor1.png"; // Ensure this path is correct for your default profile picture
 import Loading from "../utils/loading"; // Import the Loading component
 import QRCode from "react-qr-code"; // Import QRCode from react-qr-code
+import "../styles/profile.css";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -31,6 +32,7 @@ const Profile = () => {
   });
   const [showQR, setShowQR] = useState(false); // State to handle QR popup
   const [qrCodeData, setQrCodeData] = useState(""); // State to handle QR code data
+  const [isScanning, setIsScanning] = useState(false);
 
   const fetchProfile = async () => {
     const email = sessionStorage.getItem("userEmail"); // Retrieve email from sessionStorage
@@ -130,6 +132,18 @@ const Profile = () => {
     }
   };
 
+  const handleScanQRCode = () => {
+    console.log("Scan button clicked");
+    setIsScanning(true); // Start the scanning animation
+
+    // Simulate the scan process (you can replace this with actual scan logic)
+    setTimeout(() => {
+      setIsScanning(false); // Stop the scanning after a delay
+      alert("Scan complete!"); // Simulate scan completion
+      window.location.href = "/medical-report"; // Redirect to /medical-report
+    }, 3000); // Scan lasts for 3 seconds
+  };
+
   const handlePaymentRedirect = () => {
     // Redirect to the payment page (replace with your payment route)
     window.location.href = "/payment";
@@ -149,7 +163,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex flex-col justify-center items-center p-6">
+    <div className="bg-gradient-to-br from-baseextra4 to-baseprimary w-full min-h-screen flex flex-col justify-center items-center p-6">
       <div className="relative flex flex-col sms:w-[95vw] lgs:flex-row h-auto w-auto justify-center items-center bg-white rounded-3xl shadow-lg overflow-hidden mt-8 sms:mt-10 lgs:mt-10 lgs:mb-10 mb-20">
         {/* Left Section: Profile Header, Picture & Name */}
         <div className="flex flex-col sms:w-full sms:h-auto lgs:w-[30vw] lgs:h-[75vh] p-8 justify-center items-center bg-baseprimary rounded-l-3xl">
@@ -470,19 +484,32 @@ const Profile = () => {
       {/* QR Code Popup */}
       {showQR && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg relative">
             <h2 className="font-russoone text-2xl mb-4">Your Health ID</h2>
-            {/* Render the QR code here */}
-            <div className="flex justify-center items-center bg-gray-200 w-48 h-48 rounded-lg mb-4">
-              <QRCode value={qrCodeData} size={192} />{" "}
-              {/* Adjust size as needed */}
+            {/* QR Code display */}
+            <div className="relative flex justify-center items-center bg-gray-200 w-48 h-48 rounded-lg mb-4">
+              <QRCode value={qrCodeData} size={192} />
+              {isScanning && (
+                <div className="absolute inset-0 flex justify-center">
+                  {/* Scanning line */}
+                  <div className="scan-line"></div>
+                </div>
+              )}
             </div>
-            <button
-              onClick={handleCloseQRCodePopup}
-              className="bg-gray-500 text-white py-2 px-4 rounded-full hover:bg-gray-600 transition-colors duration-300"
-            >
-              Close
-            </button>
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={handleCloseQRCodePopup}
+                className="bg-gray-500 text-white py-2 px-4 rounded-full hover:bg-gray-600 transition-colors duration-300"
+              >
+                Close
+              </button>
+              <button
+                onClick={handleScanQRCode}
+                className="bg-baseprimary text-white py-2 px-4 rounded-full hover:bg-basesecondary transition-colors duration-300"
+              >
+                Scan
+              </button>
+            </div>
           </div>
         </div>
       )}

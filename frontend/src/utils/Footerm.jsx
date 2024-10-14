@@ -17,7 +17,7 @@ const Footerm = () => {
         </Link>
 
         {/* Link to Home Page */}
-        <Link to="/">
+        <Link to="/home">
           <FontAwesomeIcon icon={faHomeLg} className="text-primary h-8" />
         </Link>
 

@@ -6,7 +6,8 @@ import {
   FaClock,
   FaDollarSign,
   FaChair,
-} from "react-icons/fa"; // Import icons
+  FaHistory, // History icon for the floating button
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const DisplayAppointments = () => {
@@ -14,6 +15,8 @@ const DisplayAppointments = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedAppointments, setSelectedAppointments] = useState([]); // State to track selected appointments
+  const [showPaymentHistory, setShowPaymentHistory] = useState(false); // Toggle modal visibility
+  const [payments, setPayments] = useState([]); // State for payment history
   const navigate = useNavigate(); // Initialize useNavigate
 
   // Fetch appointments from backend
@@ -37,17 +40,7 @@ const DisplayAppointments = () => {
         }
       } catch (error) {
         console.error("Error fetching appointments:", error); // Log error for debugging
-        if (error.response) {
-          if (error.response.status === 404) {
-            setError("No appointments available for payment.");
-          } else {
-            setError(
-              error.response?.data?.message || "Error fetching appointments"
-            );
-          }
-        } else {
-          setError("Error fetching appointments: " + error.message);
-        }
+        setError("Error fetching appointments.");
       } finally {
         setLoading(false);
       }
@@ -55,6 +48,21 @@ const DisplayAppointments = () => {
 
     fetchAppointments();
   }, []);
+
+  // Fetch payment history from backend
+  const fetchPaymentHistory = async () => {
+    const email = sessionStorage.getItem("userEmail"); // Get userEmail from sessionStorage
+    if (!email) return;
+
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/payments/payments/${email}`
+      );
+      setPayments(response.data.payments || []);
+    } catch (error) {
+      console.error("Error fetching payment history:", error);
+    }
+  };
 
   const handleSelectAppointment = (appointmentId) => {
     setSelectedAppointments((prev) =>
@@ -70,31 +78,26 @@ const DisplayAppointments = () => {
   }, 0);
 
   const handleProceedToPayment = () => {
-    // Log selected appointments for debugging
-    console.log("Selected Appointments:", selectedAppointments);
-
-    // Check if any appointments have been selected
     if (!selectedAppointments || selectedAppointments.length === 0) {
       alert("No appointments selected.");
-      return; // Exit early if there are no selected appointments
+      return;
     }
 
-    // Navigate to payment process with selected appointments and total charge
     navigate("/payment-process", {
-      state: { selectedAppointments, totalCharge }, // Pass selected appointments directly
+      state: { selectedAppointments, totalCharge },
     });
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const togglePaymentHistory = () => {
+    setShowPaymentHistory(!showPaymentHistory);
+    fetchPaymentHistory();
+  };
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="bg-primary w-full min-h-screen flex justify-center items-center p-4">
+    <div className="bg-gradient-to-br from-baseextra4 to-baseprimary w-full min-h-screen flex justify-center items-center p-4">
       <div className="relative flex h-auto w-full justify-center items-center mt-16 mb-24">
         <div className="flex flex-col w-full max-w-screen-lg bg-primary drop-shadow-lg items-center justify-center rounded-3xl p-6 overflow-y-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
@@ -108,12 +111,11 @@ const DisplayAppointments = () => {
                   key={appointment._id}
                   className={`appointment-card bg-white shadow-lg p-6 rounded-xl w-full mx-auto transition-transform transform hover:scale-105 duration-300 ease-in-out ${
                     selectedAppointments.includes(appointment._id)
-                      ? "border-2 border-blue-500" // Change to border-blue-500 for the selected card
+                      ? "border-2 border-blue-500"
                       : ""
                   } relative`}
-                  onClick={() => handleSelectAppointment(appointment._id)} // Toggle selection on click
+                  onClick={() => handleSelectAppointment(appointment._id)}
                 >
-                  {/* Checkmark for selected appointments */}
                   {selectedAppointments.includes(appointment._id) && (
                     <div className="absolute top-3 right-3 text-green-500 text-2xl">
                       ✔️
@@ -153,10 +155,6 @@ const DisplayAppointments = () => {
                       <FaChair className="text-secondary text-lg mr-2" />
                       <strong>Seat No:</strong> {appointment.seatNo}
                     </p>
-                    <p className="text-md flex items-center col-span-2">
-                      <strong>Scheduled Time:</strong>{" "}
-                      {appointment.scheduledTime}
-                    </p>
                   </div>
                 </div>
               ))
@@ -164,14 +162,71 @@ const DisplayAppointments = () => {
           </div>
         </div>
       </div>
+
+      {/* Floating Payment History Button */}
+      <div className="fixed lg:top-20 lg:left-10 left-5 top-12">
+        <button
+          className="bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+          onClick={togglePaymentHistory}
+        >
+          <FaHistory size={24} />
+        </button>
+      </div>
+
+      {showPaymentHistory && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-lg w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl p-6 relative space-y-4 max-h-[80vh] sm:max-h-[70vh] overflow-y-auto">
+            {" "}
+            {/* Set max-height for mobile responsiveness */}
+            <button
+              className="absolute top-4 right-4 text-gray-500"
+              onClick={() => setShowPaymentHistory(false)}
+            >
+              ✖
+            </button>
+            <h2 className="text-2xl font-bold mb-4">Payment History</h2>
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {payments.length === 0 ? (
+                <p className="text-center">No previous payments found.</p>
+              ) : (
+                payments.map((payment) => (
+                  <div key={payment._id} className="bg-gray-100 p-4 rounded-lg">
+                    <p>
+                      <strong>Date:</strong>{" "}
+                      {new Date(payment.paymentDate).toLocaleDateString()}
+                    </p>
+                    <p>
+                      <strong>Amount:</strong> ${payment.amount.toFixed(2)}
+                    </p>
+                    <p>
+                      <strong>Tax:</strong> ${payment.tax.toFixed(2)}
+                    </p>
+                    <p>
+                      <strong>Total Amount:</strong> $
+                      {payment.totalAmount.toFixed(2)}
+                    </p>
+                    <p>
+                      <strong>Payment Method:</strong> {payment.paymentMethod}
+                    </p>
+                    <p>
+                      <strong>Status:</strong> {payment.status}
+                    </p>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Floating Proceed to Payment Button */}
       <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 lg:bottom-12 lg:left-auto lg:right-16 flex justify-center">
         <button
           className={`bg-blue-500 text-white font-bold py-3 px-6 rounded-full transition-transform duration-300 ease-in-out ${
             totalCharge > 0 ? "opacity-100" : "opacity-50 cursor-not-allowed"
           }`}
-          disabled={totalCharge === 0} // Disable if no appointments are selected
-          onClick={handleProceedToPayment} // Navigate to payment page
+          disabled={totalCharge === 0}
+          onClick={handleProceedToPayment}
         >
           Proceed to Payment (${totalCharge})
         </button>
