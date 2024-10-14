@@ -23,6 +23,12 @@ const doctorSchema = new mongoose.Schema({
         type: [Number],
         required: true,
     },
+    
+  pricePerSchedule: {
+    type: Number,
+    required: true,
+},
+
 });
 
 // Create the Doctor model

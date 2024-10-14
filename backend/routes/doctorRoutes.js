@@ -56,6 +56,22 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+// Get doctor by doctorId instead of _id
+router.get('/doctor/:id', async (req, res) => {
+    try {
+        const doctor = await Doctors.findOne({ doctorId: req.params.id });
+        if (!doctor) {
+            return res.status(404).json({ message: 'Doctor not found' });
+        }
+        res.json(doctor);
+    } catch (error) {
+        console.error("Error fetching doctor:", error);
+        res.status(500).json({ message: "Error fetching doctor" });
+    }
+});
+
+
+
 // Delete a doctor by ID
 router.delete("/:id", async (req, res) => {
     try {
