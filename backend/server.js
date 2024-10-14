@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 // MongoDB Connection
 const mongoURI =
   process.env.MONGO_URI ||
-  "mongodb+srv://yehara:1234@cluster0.jtpcd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  "mongodb+srv://yehara:yehara1234@cluster0.33vsb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 mongoose
   .connect(mongoURI)
   .then(() => console.log("MongoDB connected"))
@@ -37,6 +37,15 @@ app.use("/api/doctors", doctorRoutes); // Use the reportRoutes for the /api/repo
 
 const MedicalReportRoutes = require("./routes/MedicalReportsRoutes"); 
 app.use("/api/medicalReport", MedicalReportRoutes); 
+
+const userRoutes = require("./routes/userRoutes"); // Import userRoutes
+app.use("/api/users", userRoutes); // Use the userRoutes for the /api/users endpoint
+
+const appointmentsRoute = require("./routes/appointmentsRoute"); // Import userRoutes
+app.use("/api/appointments", appointmentsRoute); // Use the userRoutes for the /api/users endpoint
+
+const paymentRoutes = require("./routes/paymentRoutes"); // Import userRoutes
+app.use("/api/payments", paymentRoutes); // Use the userRoutes for the /api/users endpoint
 
 
 

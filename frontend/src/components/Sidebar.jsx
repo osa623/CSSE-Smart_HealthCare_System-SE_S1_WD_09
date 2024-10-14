@@ -14,8 +14,12 @@ const Sidebar = () => {
     return (
         <>
             {/* Menu Icon (Visible on smaller screens) */}
-            <div className="sms:block md:hidden p-4 bg-blue-900 text-white fixed top-0 left-0 z-50">
-                <FiMenu size={30} onClick={toggleSidebar} className="cursor-pointer" />
+            <div className="p-4 fixed top-0 left-0 z-50"> {/* Removed background classes */}
+                <FiMenu
+                    size={30}
+                    onClick={toggleSidebar}
+                    className="cursor-pointer text-blue-900" // Custom color added to the icon
+                />
             </div>
 
             {/* Sidebar */}
@@ -29,51 +33,56 @@ const Sidebar = () => {
                     <AiOutlineClose size={30} onClick={toggleSidebar} className="cursor-pointer" />
                 </div>
 
-                <div>
-                    <h2 className="text-3xl font-bold mb-6 tracking-wider text-center">
-                        Healthcare <br /> Management
-                    </h2>
-                    <ul className="space-y-4">
-                        <li>
-                            <Link
-                                to="/addDoctor"
-                                className="flex items-center space-x-3 text-lg font-medium p-2 rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105"
-                            >
-                                <FiUserPlus className="text-xl" />
-                                <span>Add Doctor</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/view-doctors"
-                                className="flex items-center space-x-3 text-lg font-medium p-2 rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105"
-                            >
-                                <FiList className="text-xl" />
-                                <span>View Doctors</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/add-report"
-                                className="flex items-center space-x-3 text-lg font-medium p-2 rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105"
-                            >
-                                <FiFilePlus className="text-xl" />
-                                <span>Add Patient Report</span>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/addedReports"
-                                className="flex items-center space-x-3 text-lg font-medium p-2 rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105"
-                            >
-                                <FiFileText className="text-xl" />
-                                <span>Manage Reports</span>
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-                <div className="text-center text-sm text-gray-300">
-                    © 2024 Healthcare Management
+                {/* Flex container to ensure footer stays near the bottom */}
+                <div className="flex flex-col h-full">
+                    <div className="flex-grow">
+                        <h2 className="text-3xl font-bold mb-6 tracking-wider text-center">
+                            Healthcare <br /> Management
+                        </h2>
+                        <ul className="space-y-4">
+                            <li>
+                                <Link
+                                    to="/addDoctor"
+                                    className="flex items-center space-x-3 text-lg font-medium p-2 rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105"
+                                >
+                                    <FiUserPlus className="text-xl" />
+                                    <span>Add Doctor</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/view-doctors"
+                                    className="flex items-center space-x-3 text-lg font-medium p-2 rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105"
+                                >
+                                    <FiList className="text-xl" />
+                                    <span>View Doctors</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/add-report"
+                                    className="flex items-center space-x-3 text-lg font-medium p-2 rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105"
+                                >
+                                    <FiFilePlus className="text-xl" />
+                                    <span>Add Patient Report</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/addedReports"
+                                    className="flex items-center space-x-3 text-lg font-medium p-2 rounded-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105"
+                                >
+                                    <FiFileText className="text-xl" />
+                                    <span>Manage Reports</span>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Footer (pushed up a bit) */}
+                    <div className="text-center text-sm text-gray-300 mt-4 mb-8">
+                        © 2024 Healthcare Management
+                    </div>
                 </div>
             </div>
 
