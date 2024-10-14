@@ -56,19 +56,19 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-// Get doctor by doctorId instead of _id
-router.get('/doctor/:id', async (req, res) => {
+   router.get('/doctors/:id', async (req, res) => {
     try {
-        const doctor = await Doctors.findOne({ doctorId: req.params.id });
+        const doctor = await Doctors.findById(req.params.id); // Query by ObjectId
         if (!doctor) {
-            return res.status(404).json({ message: 'Doctor not found' });
+            return res.status(404).json({ error: "Doctor not found" });
         }
         res.json(doctor);
     } catch (error) {
-        console.error("Error fetching doctor:", error);
-        res.status(500).json({ message: "Error fetching doctor" });
+        console.error("Error fetching doctor by ID", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 
 
 

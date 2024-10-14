@@ -24,10 +24,10 @@ const doctorSchema = new mongoose.Schema({
         required: true,
     },
     
-  pricePerSchedule: {
-    type: Number,
-    required: true,
-},
+    pricePerSchedule: {
+        type: Number,
+        required: true,
+    }
 
 });
 

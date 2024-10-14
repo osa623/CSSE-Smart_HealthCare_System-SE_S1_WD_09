@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Appointment = require("../models/Appointment");
+const Appointment = require("../models/appointment");
 
 // Get appointments for a specific user by email (GET)
 router.get("/:email", async (req, res) => {
@@ -21,11 +21,25 @@ router.get("/:email", async (req, res) => {
   }
 });
 
+// Fetch all appointments (GET)
+router.get("/", async (req, res) => {
+  try {
+    const appointments = await Appointment.find();
+    if (!appointments || appointments.length === 0) {
+      return res.status(404).json({ message: "No appointments found" });
+    }
+    res.status(200).json(appointments);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching appointments", details: error.message });
+  }
+});
+
 // Create a new appointment (POST)
 router.post("/", async (req, res) => {
   const {
     doctorName,
     specialization,
+    note,
     charge,
     date,
     scheduledTime,
@@ -34,24 +48,31 @@ router.post("/", async (req, res) => {
   } = req.body;
 
   try {
-    // Find the latest appointment number
-    const lastAppointment = await Appointment.findOne({})
-      .sort({ appointmentNo: -1 })
-      .exec();
-
     // Generate a new appointment number
     let newAppointmentNo = "MED00001"; // Default if no appointments exist
+
+    // Find the latest appointment number
+    const lastAppointment = await Appointment.findOne({}).sort({ appointmentNo: -1 }).exec();
+    
     if (lastAppointment) {
       // Extract number part from the last appointment number and increment it
       const lastNumber = parseInt(lastAppointment.appointmentNo.slice(3), 10);
-      const nextNumber = lastNumber + 1;
-      newAppointmentNo = `MED${nextNumber.toString().padStart(5, "0")}`;
+      newAppointmentNo = `MED${(lastNumber + 1).toString().padStart(5, '0')}`;
+    }
+
+    // Check for duplicates and increment if necessary
+    let appointmentExists = await Appointment.findOne({ appointmentNo: newAppointmentNo });
+    while (appointmentExists) {
+      const lastNumber = parseInt(newAppointmentNo.slice(3), 10);
+      newAppointmentNo = `MED${(lastNumber + 1).toString().padStart(5, '0')}`;
+      appointmentExists = await Appointment.findOne({ appointmentNo: newAppointmentNo });
     }
 
     const newAppointment = new Appointment({
       appointmentNo: newAppointmentNo,
       doctorName,
       specialization,
+      note,
       charge,
       date,
       scheduledTime,
@@ -65,11 +86,10 @@ router.post("/", async (req, res) => {
       appointment: newAppointment,
     });
   } catch (error) {
-    res
-      .status(400)
-      .json({ error: "Error creating appointment", details: error.message });
+    res.status(400).json({ error: "Error creating appointment", details: error.message });
   }
 });
+
 
 // Bulk insert appointments (POST)
 router.post("/bulk", async (req, res) => {

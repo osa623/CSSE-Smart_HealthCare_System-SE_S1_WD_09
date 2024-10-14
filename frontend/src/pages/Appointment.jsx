@@ -13,91 +13,157 @@ import {  faBookMedical, faFileCircleCheck, faMedkit, faTableCells, faUndo } fro
 
 const Appointment = () => {
 
-    //hooks
-        const[showAppo, setShowAppo] = useState(false);
-        const [selectedDoctor, setSelectedDoctor] = useState(null);
-        const [seatCount, setSeatCount] = useState([]);
-        const [options1, setOptions1] = useState([
-          { id: 'Cardiology', name: 'Cardiology' },
-          { id: 'Neurology', name: 'Neurology' },
-          // Add more specialization
-      ]);
-        const [selectedSpecialization, setSelectedSpecialization] = useState('');
-        const [options2, setOptions2] = useState([]);
-        const [arraySlots, setArraySlots] = useState(Array.from({ length: 40 }, (_, index) => `Slot ${index + 1}`));
-        const [occupiedSeats, setOccupiedSeats] = useState([]); 
-        const [seatNumber, setSeatNumber] = useState(null); 
-        const [pricePerCharge, setPricePerCharge] = useState(null);
+  const [showAppo, setShowAppo] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [seatCount, setSeatCount] = useState([]);
+  const [options1, setOptions1] = useState([
+    { id: 'Cardiology', name: 'Cardiology' },
+    { id: 'Neurology', name: 'Neurology' },
+    { id: 'Dermatology', name: 'Dermatology' },
+    { id: 'Pediatrics', name: 'Pediatrics' },
+    { id: 'Allergist', name: 'Allergist' },
+    // Add more specializations as needed
+  ]);
+  const [selectedSpecialization, setSelectedSpecialization] = useState('');
+  const [options2, setOptions2] = useState([]);
+  const [occupiedSeats, setOccupiedSeats] = useState([]);
+  const [fetchAppos, setFetchAppos] = useState([]);
+  const [seatNumber, setSeatNumber] = useState(null);
+  const [pricePerCharge, setPricePerCharge] = useState(null);
 
-        // Optionally, you can populate the array with some initial values
-        useEffect(() => {
-          const initialArray = Array.from({ length: 40 }, (_, index) => `Slot ${index + 1}`);
-          setArraySlots(initialArray);
-      }, []);
+  // Form data state
+  const [formData, setFormData] = useState({
+    selectedDoctor: '',
+    selectedSpecialization: '', // Added specialization to form data
+    email: '',
+    description: '',
+    date: '',
+    time: '',
+    seatNumber: '',
+    pricePerCharge: '',
+  });
 
-            // Allocate the next available seat
-            const allocateSeat = () => {
-              const totalSeats = 40; // Assuming a total of 40 seats
-              for (let i = 1; i <= totalSeats; i++) {
-                  if (!occupiedSeats.includes(i)) {
-                      setSeatNumber(i);
-                      setOccupiedSeats(prev => [...prev, i]); // Mark the seat as occupied
-                      break;
-                  }
-              }
-          };
+  // Handle input changes for any form field
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-          // Handle time selection
-          const handleTimeChange = (e) => {
-              // Only allocate a seat if one hasn't been assigned yet
-              if (seatNumber === null) {
-                  allocateSeat(); // Allocate a seat only once
-              }
-          };
+  // Allocate the next available seat
+  const allocateSeat = () => {
+    const totalSeats = 40; // Assuming a total of 40 seats
+    for (let i = 1; i <= totalSeats; i++) {
+      if (!occupiedSeats.includes(i)) {
+        setSeatNumber(i);
+        setOccupiedSeats((prev) => [...prev, i]); // Mark the seat as occupied
+        setFormData((prev) => ({
+          ...prev,
+          seatNumber: i // Update the seat number in form data
+        }));
+        break;
+      }
+    }
+  };
 
+  // Handle time selection
+  const handleTimeChange = (e) => {
+    // Only allocate a seat if one hasn't been assigned yet
+    if (seatNumber === null) {
+      allocateSeat(); // Allocate a seat only once
+    }
+    handleInputChange(e); // Update time in form data
+  };
 
-
-
-        // Function to fetch doctors based on specialization
-        const fetchDoctorsBySpecialization = async (specialization) => {
-            try {
-                const response = await axios.get(`http://localhost:3000/api/doctors/specialization/${specialization}`);
-                setOptions2(response.data); // Set doctors to dropdown
-            } catch (error) {
-                console.error('Error fetching doctors:', error);
-            }
-        };
-
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent the default form submission
   
-        // Function to handle doctor selection and fetch seat count
-        const handleDoctorChange = async (doctorId) => {
-          setSelectedDoctor(doctorId);
-          try {
-              const response = await axios.get(`http://localhost:3000/api/doctors/${doctorId}`);
-              setPricePerCharge(response.data.pricePerSchedule);
-              if (response.data && response.data.seatCount) {
-                  setSeatCount(response.data.seatCount);
-                  setOccupiedSeats(response.data.seatCount || []); // Assume `seats` is in the response
-              } else {
-                  setSeatCount([]);  // Set empty array if no seatCount is found
-                  setOccupiedSeats([]);
-              }
-          } catch (error) {
-              console.error("Error fetching doctor details", error);
-              setSeatCount([]);  // In case of error, reset seatCount to empty array
-              setOccupiedSeats([]);
-          }
-      };
+    // Extract values from the form elements using e.target
+    const form = e.target; // Get the form element
+    
+  
+    const appointmentData = {
+      doctorName: form.selectedDoctor.value, // Get selected doctor ID
+      specialization: form.selectedSpecialization.value, // Get selected specialization
+      note: form.description.value, // Get description
+      charge: form.pricePerCharge.value, // Get medical charge
+      date: form.date.value, // Get selected date
+      scheduledTime: form.time.value, // Get selected time
+      seatNo: form.seatNumber.value, // Get seat number
+      userEmail: form.email.value, // Get user email
+    };
+  
+    try {
+      const response = await axios.post('http://localhost:3000/api/appointments', appointmentData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      console.log('Appointment created successfully', response.data);
+      window.alert("Appointment created successfully!");
+      // Handle successful creation (e.g., show a success message, reset form, etc.)
+      form.reset(); // Optional: reset the form after submission
+    } catch (error) {
+      console.error('Failed to create appointment', error.response?.data || error.message);
+      // Handle errors (e.g., show an error message)
+    }
+  };
 
+  //fetching Appos
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/appointments/");
+        setFetchAppos(response.data);
+      } catch (error) {
+        console.error("Error fetching appointments", error);
+      } 
+    };
 
-        // Effect to fetch doctors when specialization is selected
-        useEffect(() => {
-            if (selectedSpecialization) {
-                fetchDoctorsBySpecialization(selectedSpecialization);
-            }
-        }, [selectedSpecialization]);
+    fetchAppointments();
+  }, []);
 
+  // Function to fetch doctors based on specialization
+  const fetchDoctorsBySpecialization = async (specialization) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/doctors/specialization/${specialization}`);
+      setOptions2(response.data); // Set doctors to dropdown
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+    }
+  };
 
+  // Function to handle doctor selection and fetch seat count
+  const handleDoctorChange = async (doctorId) => {
+    setSelectedDoctor(doctorId);
+    try {
+      const response = await axios.get(`http://localhost:3000/api/doctors/${doctorId}`);
+      setPricePerCharge(response.data.pricePerSchedule);
+      setFormData((prev) => ({ ...prev, selectedDoctor: doctorId, pricePerCharge: response.data.pricePerSchedule }));
+      if (response.data && response.data.seatCount) {
+        setSeatCount(response.data.seatCount);
+        setOccupiedSeats(response.data.seatCount || []); // Assume `seatCount` is in the response
+      } else {
+        setSeatCount([]);  // Set empty array if no seatCount is found
+        setOccupiedSeats([]);
+      }
+    } catch (error) {
+      console.error("Error fetching doctor details", error);
+      setSeatCount([]);  // In case of error, reset seatCount to empty array
+      setOccupiedSeats([]);
+    }
+  };
+
+  // Effect to fetch doctors when specialization is selected
+  useEffect(() => {
+    if (selectedSpecialization) {
+      fetchDoctorsBySpecialization(selectedSpecialization);
+    }
+  }, [selectedSpecialization]);
 
 
   return (
@@ -219,15 +285,18 @@ const Appointment = () => {
 
                                               <div className='flex flex-col lgs:w-[45vw] lgs:h-[85vh] bg-primary lgs:p-2 drop-shadow-lg justify-center items-center lgs:rounded-r-3xl'>
                                                           
-                                                          <form className="flex flex-col space-y-6 w-full h-auto px-8 lgs:mt-5">
+                                                          <form className="flex flex-col space-y-6 w-full h-auto px-8 lgs:mt-5" onSubmit={handleSubmit}>
                                                             
                                                               {/* First Dropdown */}
                                                               <div>
                                                                   <label htmlFor="firstDropdown" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Select Specialization</label>
-                                                                  <select id="firstDropdown"
-                                                                          name="firstDropdown"
+                                                                  <select id="Specialization"
+                                                                          name="selectedSpecialization"
                                                                           className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
-                                                                          onChange={(e) => setSelectedSpecialization(e.target.value)}>
+                                                                          onChange={(e) => {
+                                                                            setSelectedSpecialization(e.target.value);
+                                                                            handleInputChange(e); // Update form data on change
+                                                                        }}>
                                                                       <option value="" className='font-ibmplexsans lgs:text-lg'>Pick an Specialization</option>
                                                                       {options1.map(option => (
                                                                         <option key={option.id} value={option.id}>
@@ -239,17 +308,25 @@ const Appointment = () => {
 
                                                               {/* Second Dropdown */}
                                                               <div>
-                                                                  <label htmlFor="secondDropDown" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Select Doctor</label>
-                                                                  <select id="secondDropDown" name="secondDropDown" className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm">
-                                                                      <option value="" className='font-ibmplexsans lgs:text-lg'>Pick a Doctor</option>
-                                                                      {options2.map(option => (
-                                                                        <option key={option.id} value={option.id}>
-                                                                          <h2 className='flex font-ibmplexsans' style={{
-                                                                            fontWeight:'300'
-                                                                          }}><FontAwesomeIcon icon={faMedkit} className='mx-2'/>{option.doctorName}</h2>
-                                                                        </option>
-                                                                      ))}
-                                                                  </select>
+                                                              <label htmlFor="firstDropdown" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Select a Doctor</label>
+                                                              <select id="Doctor"
+                                                                    name="selectedDoctor" 
+                                                                    className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] lgs:w-[20vw] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
+                                                                    onChange={(e) => {
+                                                                      handleDoctorChange(e.target.value);
+                                                                      handleInputChange(e); // Update form data on change
+                                                                  }}>
+                                                                <option value="" className='font-ibmplexsans lgs:text-lg'>Pick a Doctor</option>
+                                                                {options2.map(option => (
+                                                                  <option key={option._id} value={option._id}>  {/* Make sure you pass the _id here */}
+                                                                    <h2 className='flex font-ibmplexsans' style={{ fontWeight:'300' }}>
+                                                                      <FontAwesomeIcon icon={faMedkit} className='mx-2'/>
+                                                                      {option.doctorName}
+                                                                    </h2>
+                                                                  </option>
+                                                                ))}
+                                                            </select>
+
                                                               </div>
 
                                                               {/* Email TextArea */}
@@ -258,8 +335,9 @@ const Appointment = () => {
                                                                       Your Email
                                                                     </label>
                                                                     <input
-                                                                      id="descriptionField"
-                                                                      name="descriptionField"
+                                                                      id="emailField"
+                                                                      name="email"
+                                                                      onChange={handleInputChange}
                                                                       className="mt-1 block w-full lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                       placeholder="Provide Your Email Here..."
                                                                     ></input>
@@ -272,7 +350,8 @@ const Appointment = () => {
                                                                     </label>
                                                                     <textarea
                                                                       id="descriptionField"
-                                                                      name="descriptionField"
+                                                                      name="description"
+                                                                      onChange={handleInputChange}
                                                                       rows="4"
                                                                       className="mt-1 block w-full lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                       placeholder="Provide any additional details or notes for your appointment..."
@@ -287,7 +366,8 @@ const Appointment = () => {
                                                                           <label htmlFor="dateField" className="block lgs:text-lg font-ibmplexsans text-baseprimary">Pick a Date</label>                                                      <input
                                                                               type="date"
                                                                               id="dateField"
-                                                                              name="dateField"
+                                                                              onChange={handleInputChange}
+                                                                              name="date"
                                                                               className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                             />
                                                                           </div>
@@ -298,7 +378,7 @@ const Appointment = () => {
                                                                           <input
                                                                               type="time"
                                                                               id="timeField"
-                                                                              name="timeField"
+                                                                              name="time"
                                                                               className="block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                               onChange={handleTimeChange} // Call to handle seat allocation
                                                                           />
@@ -310,7 +390,7 @@ const Appointment = () => {
                                                                             <input
                                                                                 type="number"
                                                                                 id="seatNumberField"
-                                                                                name="seatNumberField"
+                                                                                name="seatNumber"
                                                                                 className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                                 value={seatNumber || ''} // Display the allocated seat number
                                                                                 disabled
@@ -325,10 +405,11 @@ const Appointment = () => {
                                                                             <input
                                                                               type="number"
                                                                               id="priceField"
-                                                                              name="priceField"
+                                                                              name="pricePerCharge"
                                                                               value={pricePerCharge || ''} 
                                                                               className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                               placeholder="Enter the Amount"
+                                                                              disabled
                                                                             />
                                                                           </div>
 
@@ -340,13 +421,16 @@ const Appointment = () => {
 
 
                                                               {/* confirm Button */}
-                                                              <div className='flex w-auto h-auto justify-end lgs:space-x-5'>
-                                                                  <button type="submit" className="lgs:w-[10rem] bg-green-600  text-white py-2 px-4 rounded-full hover:bg-secondary-dark hover:scale-110 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                                                                  style={{
-                                                                    boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'  
-                                                                  }}>
-                                                                      Confirm
-                                                                  </button>
+                                                                <div className='flex w-auto h-auto justify-end lgs:space-x-5'>
+                                                                  <button
+                                                                        type="submit" // Set to submit to trigger form submission
+                                                                        className="lgs:w-[10rem] bg-green-600 text-white py-2 px-4 rounded-full hover:bg-secondary-dark hover:scale-110 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                                                                        style={{
+                                                                          boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'
+                                                                        }}
+                                                                      >
+                                                                        Confirm
+                                                                      </button>
 
                                                                   <button type="submit" className="lgs:w-[10rem] bg-baseprimary text-white py-2 px-4 rounded-full hover:bg-secondary-dark hover:scale-110 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" style={{
                                                                     boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'
@@ -454,27 +538,26 @@ const Appointment = () => {
 
                                               <div className='flex flex-col lgs:w-[50vw] lgs:h-[85vh] bg-primary lgs:p-2 drop-shadow-lg justify-center items-center lgs:rounded-r-3xl'>
                                                           
-                                                          <h2 className='flex flex-col lgs:h-[10vh] lgs:w-[50vw]'>
-
-                                                          </h2>
-
-                                                        {/* Appointments Views */}
-                                                          <div className='flex flex-col lgs:h-[65vh] lgs:w-[50vw] items-center justify-center'>
-                                                                  
-                                                          <div className='grid lgs:grid-cols-8 lgs:gap-5 lgs:h-[65vh] lgs:w-[50vw] lgs:scale-90'>
-                                                          {arraySlots.map((seat, index) => (
-                                                            <div key={index} className={`p-4 rounded shadow-md ${occupiedSeats.includes(index + 1) ? 'bg-green-500' : 'bg-gray-200'}`}>
-                                                                {seat}
-                                                            </div>
-                                ))}
-                                                          </div>
-
-                                                          </div>  
-
-
-                                                          <div className='flex flex-col lgs:h-[10vh] lgs:w-[50vw]'>
-
-  	                                                      </div>  
+                                              {fetchAppos.length === 0 ? (
+                                                  <p>No appointments found.</p>
+                                                ) : (
+                                                  <ul>
+                                                    {fetchAppos.map((appointment) => (
+                                                      <li key={appointment._id}>
+                                                        <strong>Appointment No:</strong> {appointment.appointmentNo} <br />
+                                                        <strong>Doctor Name:</strong> {appointment.doctorName} <br />
+                                                        <strong>Specialization:</strong> {appointment.specialization} <br />
+                                                        <strong>Date:</strong> {new Date(appointment.date).toLocaleDateString()} <br />
+                                                        <strong>Time:</strong> {appointment.scheduledTime} <br />
+                                                        <strong>Charge:</strong> ${appointment.charge} <br />
+                                                        <strong>Note:</strong> {appointment.note} <br />
+                                                        <strong>Seat No:</strong> {appointment.seatNo} <br />
+                                                        <strong>User Email:</strong> {appointment.userEmail} <br />
+                                                        <hr />
+                                                      </li>
+                                                    ))}
+                                                  </ul>
+                                                )}
 
                                               </div>
                                             
