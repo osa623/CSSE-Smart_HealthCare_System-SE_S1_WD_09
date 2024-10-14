@@ -37,7 +37,7 @@ const Sidebar = () => {
                 <div className="flex flex-col h-full">
                     <div className="flex-grow">
                         <h2 className="text-3xl font-bold mb-6 tracking-wider text-center">
-                            Healthcare <br /> Management
+                            MEDILINK
                         </h2>
                         <ul className="space-y-4">
                             <li>
@@ -81,7 +81,7 @@ const Sidebar = () => {
 
                     {/* Footer (pushed up a bit) */}
                     <div className="text-center text-sm text-gray-300 mt-4 mb-8">
-                        © 2024 Healthcare Management
+                        © 2024 Medilink 
                     </div>
                 </div>
             </div>
