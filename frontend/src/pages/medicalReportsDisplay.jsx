@@ -9,6 +9,8 @@ import {
   FaPrescriptionBottle,
   FaDiagnoses,
   FaTimes,
+  FaMedkit,
+  FaStethoscope,
 } from "react-icons/fa";
 
 const MedicalReportsDisplay = () => {
@@ -122,9 +124,9 @@ const MedicalReportsDisplay = () => {
       {/* Modal for full report view */}
       {modalOpen && selectedReport && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 p-4">
-          <div className="bg-white p-6 rounded-lg max-w-full sm:max-w-md w-full relative shadow-2xl">
+          <div className="bg-white p-4 rounded-lg max-w-full sm:max-w-lg w-full relative shadow-2xl overflow-y-auto max-h-[98vh] lg:max-h-[85vh] lg:p-2">
             <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 z-10" // Updated class for positioning
               onClick={closeModal}
             >
               <FaTimes className="text-xl" />
@@ -132,30 +134,17 @@ const MedicalReportsDisplay = () => {
             <h2 className="text-xl font-russoone text-center text-primary mb-4">
               Full Medical Report
             </h2>
-            <div className="border p-4 rounded-lg shadow-md">
+
+            {/* Patient Details Section */}
+            <div className="bg-gray-100 p-3 rounded-lg shadow-md mb-3">
+              <h3 className="text-lg font-semibold mb-2 flex items-center">
+                <FaUser className="text-baseprimary mr-2" /> Patient Details
+              </h3>
               <p>
-                <strong>Patient Name:</strong> {selectedReport.patientName}
+                <strong>Name:</strong> {selectedReport.patientName}
               </p>
               <p>
-                <strong>Patient Email:</strong> {selectedReport.patientEmail}
-              </p>
-              <p>
-                <strong>Report Date:</strong>{" "}
-                {new Date(selectedReport.reportDate).toLocaleDateString()}
-              </p>
-              <p>
-                <strong>Sugar Level:</strong> {selectedReport.sugarLevel} mg/dL
-              </p>
-              <p>
-                <strong>Blood Pressure:</strong> {selectedReport.bloodPressure}{" "}
-                mmHg
-              </p>
-              <p>
-                <strong>Heart Rate:</strong> {selectedReport.heartRate} bpm
-              </p>
-              <p>
-                <strong>Cholesterol Level:</strong>{" "}
-                {selectedReport.cholesterolLevel} mg/dL
+                <strong>Email:</strong> {selectedReport.patientEmail}
               </p>
               <p>
                 <strong>Weight:</strong> {selectedReport.weight} kg
@@ -163,26 +152,57 @@ const MedicalReportsDisplay = () => {
               <p>
                 <strong>Height:</strong> {selectedReport.height} cm
               </p>
+            </div>
+
+            {/* Vital Signs Section */}
+            <div className="bg-gray-100 p-3 rounded-lg shadow-md mb-3">
+              <h3 className="text-lg font-semibold mb-2 flex items-center">
+                <FaHeartbeat className="text-baseprimary mr-2" /> Vital Signs
+              </h3>
+              <p>
+                <strong>Sugar Level:</strong> {selectedReport.sugarLevel} mg/dL
+              </p>
+              <p>
+                <strong>Heart Rate:</strong> {selectedReport.heartRate} bpm
+              </p>
+              <p>
+                <strong>Blood Pressure:</strong> {selectedReport.bloodPressure}{" "}
+                mmHg
+              </p>
+              <p>
+                <strong>Cholesterol Level:</strong>{" "}
+                {selectedReport.cholesterolLevel} mg/dL
+              </p>
+            </div>
+
+            {/* Symptoms and Diagnosis Section */}
+            <div className="bg-gray-100 p-3 rounded-lg shadow-md mb-3">
+              <h3 className="text-lg font-semibold mb-2 flex items-center">
+                <FaDiagnoses className="text-baseprimary mr-2" /> Symptoms &
+                Diagnosis
+              </h3>
               <p>
                 <strong>Symptoms:</strong> {selectedReport.symptoms}
               </p>
               <p>
                 <strong>Diagnosis:</strong> {selectedReport.diagnosis}
               </p>
+            </div>
+
+            {/* Treatment & Prescription Section */}
+            <div className="bg-gray-100 p-3 rounded-lg shadow-md mb-3">
+              <h3 className="text-lg font-semibold mb-2 flex items-center">
+                <FaMedkit className="text-baseprimary mr-2" /> Treatment &
+                Prescription
+              </h3>
               <p>
                 <strong>Treatment:</strong> {selectedReport.treatment}
               </p>
               <p>
                 <strong>Prescription:</strong> {selectedReport.prescription}
               </p>
-              <p>
-                <strong>Follow-Up Date:</strong>{" "}
-                {new Date(selectedReport.followUpDate).toLocaleDateString()}
-              </p>
-              <p>
-                <strong>Notes:</strong> {selectedReport.notes}
-              </p>
             </div>
+
             <button
               className="mt-4 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark"
               onClick={closeModal}

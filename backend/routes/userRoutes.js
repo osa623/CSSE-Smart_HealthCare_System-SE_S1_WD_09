@@ -64,15 +64,20 @@ router.post("/login", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Check password (you might want to use bcrypt for hashing)
+    // Check password (consider using bcrypt for hashing in production)
     if (user.password !== password) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    // Optionally, return only relevant user information (not the password)
-    res
-      .status(200)
-      .json({ user: { id: user.id, name: user.name, email: user.email } });
+    // Return relevant user information along with userLevel
+    res.status(200).json({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        userLevel: user.userLevel, // Include userLevel in the response
+      },
+    });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }

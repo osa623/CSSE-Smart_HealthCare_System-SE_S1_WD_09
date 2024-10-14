@@ -63,21 +63,30 @@ const Login = () => {
         }
       );
 
-      // If login is successful, navigate to the dashboard or desired route
+      // If login is successful, navigate based on userLevel
       if (response.status === 200) {
+        const { user } = response.data;
+
         // Store the user email in session storage
-        sessionStorage.setItem("userEmail", formData.email); // Store email in session storage
+        sessionStorage.setItem("userEmail", user.email);
 
         // Verify if the email is stored
         const storedEmail = sessionStorage.getItem("userEmail");
-        if (storedEmail === formData.email) {
-          console.log(`Email stored successfully: ${storedEmail}`); // Log success message
+        if (storedEmail === user.email) {
+          console.log(`Email stored successfully: ${storedEmail}`);
         } else {
-          console.error("Failed to store email."); // Log failure message
+          console.error("Failed to store email.");
         }
 
-        localStorage.setItem("user", JSON.stringify(response.data.user)); // Store user data in local storage
-        navigate("/home"); // Redirect to the dashboard
+        // Store user data in local storage
+        localStorage.setItem("user", JSON.stringify(user));
+
+        // Check userLevel and redirect accordingly
+        if (user.userLevel === 0) {
+          navigate("/home"); // Redirect to customer dashboard
+        } else if (user.userLevel === 1) {
+          navigate("/addDoctor"); // Redirect to seller dashboard
+        }
       }
     } catch (err) {
       // Set error message if login fails
