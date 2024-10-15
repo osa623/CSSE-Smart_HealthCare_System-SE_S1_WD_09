@@ -675,7 +675,7 @@ const handleDoctorChange = async (doctorId) => {
 
                                               {/* Booking 2nd Interface */}
 
-                                              <div className="flex flex-col lgs:w-[50vw] lgs:h-[85vh] sms:w-[90vw] sms:h-[120vh] bg-primary lgs:p-4 drop-shadow-lg justify-center sms:justify-start lgs:overflow-hidden items-center lgs:rounded-r-3xl overflow-y-auto">
+                                              <div className="flex flex-col lgs:w-[50vw] lgs:h-[85vh] sms:w-[90vw] sms:h-[110vh] bg-primary lgs:p-4 drop-shadow-lg justify-center sms:justify-start lgs:overflow-hidden items-center lgs:rounded-r-3xl overflow-y-auto">
 
                                                   <p className='flex flex-col font-ibmplexsans text-md sms:text-md sms:w-[75vw] sms:pt-5 text-center text-secondary lgs:w-[40vw] lgs:mt-2' style={{fontWeight:'200'}}>
                                                     Check out today’s seat allocations below. Blue seats are occupied, while White ones are available for booking. Select an available seat to secure your appointment. Thank you!
