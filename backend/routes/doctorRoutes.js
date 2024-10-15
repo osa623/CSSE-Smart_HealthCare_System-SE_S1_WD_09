@@ -102,6 +102,35 @@ router.put("/:id", async (req, res) => {
     }
 });
 
+//update doctors seat count
+router.put("/updateseat/:id", async (req, res) => {
+    try {
+        // Find the doctor by ID
+        const doctor = await Doctors.findById(req.params.id);
+        
+        if (!doctor) {
+            return res.status(404).json({ msg: "Doctor not found" });
+        }
+
+        // Ensure seatCount exists, if not create an empty array
+        doctor.seatCount = doctor.seatCount || [];
+
+        // Append the new seat number if it's not already in the array
+        const newSeatNumber = req.body.seatNumber;
+        if (!doctor.seatCount.includes(newSeatNumber)) {
+            doctor.seatCount.push(newSeatNumber);
+        }
+
+        // Save the doctor with updated seat count
+        const updatedDoctor = await doctor.save();
+
+        res.json({ msg: "Doctor updated successfully", doctor: updatedDoctor });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(400).json({ msg: "Failed to update doctor" });
+    }
+});
+
 // Get doctors by specialization
 
 router.get("/specialization/:specialization", async (req, res) => {
