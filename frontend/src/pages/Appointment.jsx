@@ -363,7 +363,7 @@ const handleDoctorChange = async (doctorId) => {
 
                         { showAppo ? (
 
-                          <div className='flex sms:flex-col w-auto h-auto sms:h-[150vh] sms:overflow-y-scroll'>
+                          <div className='flex sms:flex-col w-auto h-auto sms:h-[160vh] sms:overflow-y-scroll'>
                               <div className= 'flex lgs:flex mds:flex sms:flex-col lgs:w-[75vw] lgs:h-[85vh] sms:w-[100vw] sms:h-[150vh] sms:pt-[5rem] overflow-hidden bg-primary drop-shadow-lg items-center justify-center sms:justify-start rounded-3xl' style={{
                                 boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'
                               }}>
@@ -414,21 +414,21 @@ const handleDoctorChange = async (doctorId) => {
 
                                                     {/* Booking 2nd Interface */}
 
-                                                    <div className='flex flex-col lgs:w-[45vw] lgs:h-[85vh] sms:w-[90vw] bg-primary lgs:p-2 drop-shadow-lg justify-center items-center lgs:rounded-r-3xl'>
+                                                    <div className='flex flex-col lgs:w-[45vw] lgs:h-[85vh] sms:w-[90vw] bg-primary lgs:p-2 drop-shadow-lg justify-center sms:overflow-hidden items-center lgs:rounded-r-3xl sms:rounded-b-2xl'>
                                                                 
-                                                                <form className="flex flex-col space-y-6 w-full h-auto px-8 lgs:mt-5" onSubmit={handleSubmit}>
+                                                                <form className="flex flex-col space-y-6 w-full h-auto px-8 mt-5" onSubmit={handleSubmit}>
                                                                   
                                                                     {/* First Dropdown */}
                                                                     <div>
                                                                         <label htmlFor="firstDropdown" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Select Specialization</label>
                                                                         <select id="Specialization"
                                                                                 name="selectedSpecialization"
-                                                                                className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
+                                                                                className="lgs:mt-1 p-2 h-[3rem] block w-full sms:mt-10 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
                                                                                 onChange={(e) => {
                                                                                   setSelectedSpecialization(e.target.value);
                                                                                   handleInputChange(e); // Update form data on change
                                                                               }}>
-                                                                            <option value="" className='font-ibmplexsans lgs:text-lg'>Pick an Specialization</option>
+                                                                            <option value="" className='font-ibmplexsans lgs:text-lg sms:w-[3rem]'>Pick an Specialization</option>
                                                                             {options1.map(option => (
                                                                               <option key={option.id} value={option.id}>
                                                                                 {option.name}
@@ -442,7 +442,7 @@ const handleDoctorChange = async (doctorId) => {
                                                                     <label htmlFor="firstDropdown" className="block lgs:text-xl font-ibmplexsans text-baseprimary">Select a Doctor</label>
                                                                     <select id="Doctor"
                                                                           name="selectedDoctor" 
-                                                                          className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] lgs:w-[20vw] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
+                                                                          className="lgs:mt-1 p-2 h-[3rem] lgs:w-[20vw] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
                                                                           onChange={(e) => {
                                                                             handleDoctorChange(e.target.value);
                                                                             handleInputChange(e); // Update form data on change
@@ -469,7 +469,7 @@ const handleDoctorChange = async (doctorId) => {
                                                                             id="emailField"
                                                                             name="email"
                                                                             onChange={handleInputChange}
-                                                                            className="mt-1 block w-full lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                                            className="mt-1 block w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                             placeholder="Provide Your Email Here..."
                                                                           ></input>
                                                                         </div>
@@ -484,13 +484,13 @@ const handleDoctorChange = async (doctorId) => {
                                                                             name="description"
                                                                             onChange={handleInputChange}
                                                                             rows="4"
-                                                                            className="mt-1 block w-full lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                                            className="mt-1 block w-full p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                             placeholder="Provide any additional details or notes for your appointment..."
                                                                           ></textarea>
                                                                         </div>
 
 
-                                                                        <div className='flex lgs:w-auto lgs:justify-between lgs:items-center'>
+                                                                        <div className='flex sms:flex-col lgs:w-auto lgs:justify-between sms:space-y-5 lgs:items-center'>
 
                                                                                 {/* Text Field */}
                                                                                 <div>
@@ -499,7 +499,7 @@ const handleDoctorChange = async (doctorId) => {
                                                                                     id="dateField"
                                                                                     onChange={handleInputChange}
                                                                                     name="date"
-                                                                                    className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                                                    className="mt-1 block w-full h-[3rem] p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                                   />
                                                                                 </div>
 
@@ -510,7 +510,7 @@ const handleDoctorChange = async (doctorId) => {
                                                                                     type="time"
                                                                                     id="timeField"
                                                                                     name="time"
-                                                                                    className="block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                                                    className="block w-full h-[3rem] p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                                     onChange={handleTimeChange} // Call to handle seat allocation
                                                                                 />
                                                                             </div>
@@ -522,7 +522,7 @@ const handleDoctorChange = async (doctorId) => {
                                                                                       type="number"
                                                                                       id="seatNumberField"
                                                                                       name="seatNumber"
-                                                                                      className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                                                      className="mt-1 block w-full h-[3rem] p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                                       value={seatNumber || ''} // Display the allocated seat number
                                                                                       disabled
                                                                                   />
@@ -538,7 +538,7 @@ const handleDoctorChange = async (doctorId) => {
                                                                                     id="priceField"
                                                                                     name="pricePerCharge"
                                                                                     value={pricePerCharge || ''} 
-                                                                                    className="mt-1 block w-full lgs:h-[3rem] lgs:p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                                                    className="mt-1 block w-full h-[3rem] p-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
                                                                                     placeholder="Enter the Amount"
                                                                                     disabled
                                                                                   />
@@ -552,10 +552,10 @@ const handleDoctorChange = async (doctorId) => {
 
 
                                                                     {/* confirm Button */}
-                                                                      <div className='flex w-auto h-auto justify-end lgs:space-x-5'>
+                                                                      <div className='flex w-auto h-auto justify-end sms:justify-center lgs:space-x-5'>
                                                                         <button
                                                                               type="submit" // Set to submit to trigger form submission
-                                                                              className="lgs:w-[10rem] bg-green-600 text-white py-2 px-4 rounded-full hover:bg-secondary-dark hover:scale-110 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                                                                              className="lgs:w-[10rem] bg-green-600 text-white py-2 px-4 sms:w-[15rem] sms:h-[3rem] rounded-full hover:bg-secondary-dark hover:scale-110 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                                                                               style={{
                                                                                 boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'
                                                                               }}
@@ -563,12 +563,16 @@ const handleDoctorChange = async (doctorId) => {
                                                                               Confirm
                                                                             </button>
 
-                                                                        <button type="submit" className="lgs:w-[10rem] bg-baseprimary text-white py-2 px-4 rounded-full hover:bg-secondary-dark hover:scale-110 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" style={{
+                                                                        <button type="submit" className="hidden lgs:flex mds:flex lgs:w-[10rem] bg-baseprimary text-white py-2 px-4 rounded-full items-center justify-center hover:bg-secondary-dark hover:scale-110 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" style={{
                                                                           boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'
                                                                         }}>
                                                                             Cancel
                                                                         </button>
-                                                                    </div>
+                                                                     </div>
+
+                                                                     <div className='hidden sms:flex w-full h-[30vh] bg-transparent justify-end lgs:space-x-5'/>
+
+                                                                     
                                                                 </form>
                                                     </div>
 
@@ -583,18 +587,18 @@ const handleDoctorChange = async (doctorId) => {
 
                         //Booking Appointements Compo 
 
-                         <div className= 'flex lgs:w-[75vw] lgs:h-[85vh] overflow-hidden bg-baseprimary drop-shadow-lg items-center justify-center lgs:rounded-3xl' style={{
+                         <div className= 'flex lgs:flex sms:flex-col lgs:w-[75vw] lgs:h-[85vh] sms:w-[100vw] sms:h-auto overflow-hidden bg-primary drop-shadow-lg items-center justify-center lgs:rounded-3xl' style={{
                           boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5), 0px 5px 20px rgba(0,0,0,0.5)'
                         }}>
 
 
                                              {/* Booking 1st Interface */}
 
-                                              <div className= 'flex flex-col lgs:w-[25vw] lgs:h-[85vh] bg-baseprimary lgs:p-2 drop-shadow-lg justify-center lgs:space-y-4 lgs:items-center lgs:rounded-l-3xl'>
+                                              <div className= 'flex flex-col lgs:w-[25vw] lgs:h-[85vh] sms:w-[90vw] sms:h-auto sms:mt-[5rem] bg-baseprimary  items-center  lgs:p-2 drop-shadow-lg justify-center lgs:space-y-4 lgs:items-center lgs:rounded-l-3xl sms:rounded-t-3xl'>
                                                 
                                                 {/* Topic Section */}
-                                                  <div className= 'flex flex-col h-auto lgs:w-[20vw] justify-center items-center'>
-                                                      <h2 className= 'flex flex-col font-ibmplexsans lgs:text-md text-primary'>
+                                                  <div className= 'flex flex-col h-auto lgs:w-[20vw] justify-center items-center sms:mt-5'>
+                                                      <h2 className= 'flex flex-col font-ibmplexsans lgs:text-md sms:text-xs text-primary'>
                                                         Your Health, Your Schedule{''}<div className='bg-primary h-[0.15rem] w-auto'/>
                                                       </h2>
                                                       <h2 className= 'font-russoone lgs:text-2xl text-primary font-normal'>
@@ -603,13 +607,13 @@ const handleDoctorChange = async (doctorId) => {
                                                   </div>
 
                                               {/* Image Section */}
-                                                  <div className= 'flex flex-col h-auto lgs:w-[20vw] justify-center items-center lgs:pt-2'>
+                                                  <div className= 'flex flex-col h-auto lgs:w-[20vw] sms:w-[70vw] justify-center items-center lgs:pt-2'>
                                                       <img src= {AppoView} alt='' className='lgs:w-[20vw]'/>
                                                   </div>
 
                                               {/* Paragraph Section */}
-                                                  <div className= 'flex flex-col h-auto lgs:w-[20vw] justify-center items-center lgs:pt-5'>
-                                                    <p className='font-ibmplexsans text-primary text-md text-center' style={{
+                                                  <div className= 'flex flex-col h-auto lgs:w-[20vw] sms:w-[75vw] justify-center sms:mt-4 items-center lgs:pt-5'>
+                                                    <p className='font-ibmplexsans text-primary text-md sms:text-xs text-center' style={{
                                                       fontWeight:'200'
                                                     }}>
                                                     Select a specialization and choose a doctor to view their ongoing appointments. Easily find a suitable time slot and manage your bookings efficiently in just a few steps!                                                    </p>
@@ -617,13 +621,13 @@ const handleDoctorChange = async (doctorId) => {
 
                                                  {/* Filtering Option */}
 
-                                                 <div className='flex flex-col h-auto lgs:w-[20vw] justify-center items-center lgs:pt-2 lgs:space-y-2'>
+                                                 <div className='flex flex-col h-auto lgs:w-[20vw] sms:w-[75vw] justify-center items-center lgs:pt-2 sms:pt-4 sms:space-y-3 lgs:space-y-2'>
                                                               
                                                               <div>
                                                                   <label htmlFor="firstDropdown" className="flex lgs:text-lg font-ibmplexsans text-primary" style={{fontWeight:'300'}}>Select Specialization</label>
                                                                   <select id="firstDropdown"
                                                                           name="firstDropdown"
-                                                                          className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] block lgs:w-[20vw] bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
+                                                                          className="lgs:mt-1 p-2 h-[3rem] block lgs:w-[20vw] sms:w-[75vw] bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
                                                                           onChange={(e) => setSelectedSpecialization(e.target.value)}>
                                                                       <option value="" className='font-ibmplexsans lgs:text-lg'>Pick an Specialization</option>
                                                                       {options1.map(option => (
@@ -639,7 +643,7 @@ const handleDoctorChange = async (doctorId) => {
                                                               <label htmlFor="firstDropdown" className="flex lgs:text-lg font-ibmplexsans text-primary" style={{fontWeight:'300'}}>Select a Doctor</label>
                                                               <select id="secondDropDown"
                                                                     name="secondDropDown" 
-                                                                    className="lgs:mt-1 lgs:p-2 lgs:h-[3rem] lgs:w-[20vw] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
+                                                                    className="lgs:mt-1 p-2 h-[3rem] lgs:w-[20vw] sms:w-[75vw] block w-full bg-white border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-baseprimary sm:text-sm"
                                                                     onChange={(e) => handleDoctorChangeSecond(e.target.value)}>
                                                                 <option value="" className='font-ibmplexsans lgs:text-lg'>Pick a Doctor</option>
                                                                 {options2.map(option => (
@@ -656,7 +660,7 @@ const handleDoctorChange = async (doctorId) => {
                                                   </div>
 
                                                 {/* design  Section */}
-                                                 <div className= 'flex h-auto lgs:w-[20vw] justify-center items-center lgs:pt-5 lgs:space-x-5'>
+                                                 <div className= 'flex h-auto lgs:w-[20vw] justify-center items-center lgs:pt-5 lgs:space-x-5 sms:space-x-2  sms:pt-4 sms:pb-5'>
                                                   <div className='bg-primary h-[0.1rem] rounded-full w-[5rem]' data-aos='fade-right'/>
                                                   <div className='bg-primary h-2 w-2 rounded-full' data-aos='zoom-in'/>    
                                                   <div className='bg-primary h-2 w-2 rounded-full' data-aos='zoom-in'/>             
@@ -671,12 +675,12 @@ const handleDoctorChange = async (doctorId) => {
 
                                               {/* Booking 2nd Interface */}
 
-                                              <div className="flex flex-col lgs:w-[50vw] lgs:h-[85vh] bg-primary lgs:p-4 drop-shadow-lg justify-center lgs:overflow-hidden items-center lgs:rounded-r-3xl overflow-y-auto">
+                                              <div className="flex flex-col lgs:w-[50vw] lgs:h-[85vh] sms:w-[90vw] sms:h-[120vh] bg-primary lgs:p-4 drop-shadow-lg justify-center sms:justify-start lgs:overflow-hidden items-center lgs:rounded-r-3xl overflow-y-auto">
 
-                                                  <p className='flex flex-col font-ibmplexsans text-md text-center text-secondary lgs:w-[40vw] lgs:mt-2' style={{fontWeight:'200'}}>
+                                                  <p className='flex flex-col font-ibmplexsans text-md sms:text-md sms:w-[75vw] sms:pt-5 text-center text-secondary lgs:w-[40vw] lgs:mt-2' style={{fontWeight:'200'}}>
                                                     Check out today’s seat allocations below. Blue seats are occupied, while White ones are available for booking. Select an available seat to secure your appointment. Thank you!
                                                     </p>
-                                                    <div className= 'flex h-auto lgs:w-[20vw] justify-center items-center lgs:pt-5 lgs:space-x-5'>
+                                                    <div className= 'flex h-auto lgs:w-[20vw] justify-center items-center lgs:pt-5 lgs:space-x-5  sms:space-x-2  sms:pt-5'>
                                                       <div className='bg-baseprimary h-[0.1rem] rounded-full w-[5rem]' data-aos='fade-right'/>
                                                       <div className='bg-baseprimary h-2 w-2 rounded-full' data-aos='zoom-in'/>    
                                                       <div className='bg-baseprimary h-2 w-2 rounded-full' data-aos='zoom-in'/>             
@@ -685,12 +689,12 @@ const handleDoctorChange = async (doctorId) => {
                                                   </div>
 
 
-                                              <div className='grid lgs:grid-cols-8 lgs:gap-5 lgs:h-[50rem] lgs:w-[60vw] lgs:scale-75 lgs:p-5 lgs:overflow-hidden'>
+                                              <div className='grid lgs:grid-cols-8 sms:grid-cols-5 lgs:gap-5 lgs:h-[50rem] lgs:w-[60vw] lgs:scale-75 sms:scale-90 lgs:p-5 sms:gap-5 lgs:overflow-hidden'>
                                                     
                                                     {arraySlots.map((seat, index) => (
                                                         <div key={index}  
                                                         style={occupiedSeats.includes(index + 1) ? { boxShadow:'inset 0 2px 10px rgba(0,0,0,0.4), 0px 3px 10px rgba(0,0,0,0.8)' } : { boxShadow:'inset 0 2px 10px rgba(0,0,0,0.5)'}} className={`p-4 rounded-2xl shadow-md ${occupiedSeats.includes(index + 1) ? 'bg-gradient-to-t from-baseprimary to-blue-900 scale-110' : 'bg-transparent scale-90'}`}>
-                                                            <h2 className={`font-ibmplexsans text-md ${occupiedSeats.includes(index + 1) ? 'text-primary' : 'text-secondary'}`}>{seat}</h2>
+                                                            <h2 className={`font-ibmplexsans text-md sms:text-xs ${occupiedSeats.includes(index + 1) ? 'text-primary' : 'text-secondary'}`}>{seat}</h2>
                                                         </div>
                                                     ))}
 
